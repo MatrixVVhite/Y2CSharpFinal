@@ -39,8 +39,8 @@ namespace TheTileMapEngine
 
         public void Initialize(int sizeX, int sizeY)
         {
-            InitialSizeX = sizeX;
-            InitialSizeY = sizeY;
+            InitialSizeX = sizeX + 2;
+            InitialSizeY = sizeY + 2;
             _renderingEngine = new RenderingEngine(InitialSizeX, InitialSizeY);
             _addTiles = new TileMap(InitialSizeX, InitialSizeY);
         }
