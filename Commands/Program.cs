@@ -1,4 +1,8 @@
-﻿namespace Commands
+﻿using CoreEngineHierarchy;
+using Positioning;
+using Rendering;
+
+namespace Commands
 {
     internal class Program
     {
