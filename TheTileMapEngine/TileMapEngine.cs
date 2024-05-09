@@ -54,13 +54,23 @@ namespace TheTileMapEngine
             return _renderingEngine;
         }
 
-        public void Template(string gameType, string pieceColor, Position position)
-        {
+        public void Template(string gameType, string pieceColor, Position[] team1Positions, Position[] team2Positions)
+        { //TODO Make it work with chess & 2 colors
             char[] pieces = GetPieces(gameType);
             ConsoleColor pieceConsoleColor = GetPieceColor(pieceColor);
 
-            TileObject to1 = new TileObject(pieces[0].ToString(), new Position[] { }, new Position(1, 1), pieceConsoleColor);
-            _addTiles.InsertObjectToMap(to1, position);
+            for (int i = 0; i < team1Positions.Length; i++)
+            {
+                TileObject to = new TileObject(pieces[i].ToString(), new Position[] { }, new Position(4, 4), pieceConsoleColor);
+                _addTiles.InsertObjectToMap(to, team1Positions[i]);
+            }
+
+            for (int i = 0; i < team2Positions.Length; i++)
+            {
+                TileObject to = new TileObject(pieces[i].ToString(), new Position[] { }, new Position(4, 4), pieceConsoleColor);
+                _addTiles.InsertObjectToMap(to, team2Positions[i]);
+            }
+
             _renderingEngine.ReplaceMap(_addTiles);
             _renderingEngine.DisplayAllTiles();
         }
