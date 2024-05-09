@@ -46,6 +46,10 @@ namespace Commands
                     CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
                 }
             }
+            
+        }
+        private static void RestartSelected()
+        {
             SelectedTileObject = default;
         }
 
@@ -53,11 +57,13 @@ namespace Commands
         {
             foreach (Position pos in SelectedTileObject.Positions)
             {
+                
                 if (pos.X == destiniedLocation.X && pos.Y == destiniedLocation.Y)
                 {
+                    DeSelect();
                     CommandtileMap.MoveTileObject(SelectedTileObject, destiniedLocation);
                     Console.WriteLine(SelectedTileObject.Positions[0]);
-                    DeSelect();
+                   RestartSelected();
                     return true;
                 }
                 else
