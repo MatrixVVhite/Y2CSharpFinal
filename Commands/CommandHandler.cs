@@ -36,21 +36,23 @@ namespace Commands
         {
             foreach (var position in SelectedTileObject.Positions)
             {
-                if (position.X % 2 == 0)
-                {
-                    CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.Gray;
-                }
-
-                else if (position.Y % 2 != 0)
+                if (position.X % 2 == 0 && position.Y % 2 == 0)
                 {
                     CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
                 }
+                else if (position.X % 2 != 0 && position.Y % 2 != 0)
+                {
+                    CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
+                }
+                else
+                {
+                    CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.Gray;
+                }
             }
-            
         }
-        private static void RestartSelected()
+        private static void ForgetSelected()
         {
-            SelectedTileObject = default;
+            SelectedTileObject = null;
         }
 
         private static bool TryMoveCommand(Position destiniedLocation)
@@ -63,7 +65,7 @@ namespace Commands
                     DeSelect();
                     CommandtileMap.MoveTileObject(SelectedTileObject, destiniedLocation);
                     Console.WriteLine(SelectedTileObject.Positions[0]);
-                   RestartSelected();
+                   ForgetSelected();
                     return true;
                 }
                 else
@@ -124,6 +126,7 @@ namespace Commands
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 case "deselect":
                     DeSelect();
+                    ForgetSelected();
                     break;
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 case "move":
