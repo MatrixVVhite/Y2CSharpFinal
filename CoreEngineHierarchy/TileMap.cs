@@ -29,15 +29,16 @@ namespace CoreEngineHierarchy
                     }
                     else
                     {
+                        TileColor = ConsoleColor.Black;
 
-                        if (j < TileMapMatrix.GetLength(1) / 2) // Check if j is less than half of the width
-                        {
-                            TileColor = ConsoleColor.Red;
-                        }
-                        else
-                        {
-                            TileColor = ConsoleColor.Green;
-                        }
+                        //if (j < TileMapMatrix.GetLength(1) / 2) // Check if j is less than half of the width
+                        //{
+                        //    TileColor = ConsoleColor.Red;
+                        //}
+                        //else
+                        //{
+                        //    TileColor = ConsoleColor.Green;
+                        //}
 
                         if (i % 2 == 0)
                         {
@@ -79,7 +80,8 @@ namespace CoreEngineHierarchy
         /// </summary>
         public void DeleteTileObjectAtPos(Position newPos) //TODO set limiters and addetives to acknoledge the frame
         {
-            var newObject = new TileObject(" ", new Position[] { }, newPos, TileMapMatrix[newPos.X + 1, newPos.Y + 1].CurrentTileObject.Color);
+            //var newObject = new TileObject(" ", new Position[] { }, newPos, TileMapMatrix[newPos.X + 1, newPos.Y + 1].CurrentTileObject.Color);
+            var newObject = new TileObject(" ", new Position[] { }, newPos, ConsoleColor.Black);
             InsertObjectToMap(newObject, newPos);
         }
 
