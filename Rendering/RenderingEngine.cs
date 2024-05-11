@@ -41,7 +41,7 @@ namespace Rendering
         }
 
         /// <summary>
-        ///  Resets the map and displays it
+        ///  Updates the map and displays it
         /// </summary>
         public void UpdateAndRender(TileMap tma)
         {
