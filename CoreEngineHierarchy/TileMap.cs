@@ -82,9 +82,6 @@ namespace CoreEngineHierarchy
         public void MoveTileObject(TileObject tileObject, Position newPos)
         {
             var newObject = new TileObject(tileObject.TileObjectChar, tileObject.Positions, new Position(newPos.X, newPos.Y), tileObject.Owner);
-            //TODO acknowledge current positions and move according to them
-            newObject.Positions[0] = new Position(newObject.CurrentPos.X + 1, newObject.CurrentPos.Y + 1); //TODO fix
-            newObject.Positions[1] = new Position(newObject.CurrentPos.X - 1, newObject.CurrentPos.Y + 1);
             InsertObjectToMap(newObject, newPos);
             DeleteTileObjectAtPos(tileObject.CurrentPos);
         }

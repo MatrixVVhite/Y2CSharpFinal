@@ -33,12 +33,6 @@ namespace CoreEngineHierarchy
                 || currentMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject.Owner == null));
         }
 
-        public bool PassBorder(Position destination, TileMap currentMap)
-        {
-            return (destination.X >= 1 && destination.Y >= 1 && destination.X <= currentMap.TileMapMatrix.GetLength(0) - 1
-                        && destination.Y <= currentMap.TileMapMatrix.GetLength(1) - 1);
-        }
-
         public Tile(Position index, ConsoleColor tileColor, TileObject currentTileObject)
         {
             TilePos = index;

@@ -20,44 +20,47 @@ namespace Commands
             Console.WriteLine("Selected Tile Object " + selectedobject.TileObjectChar);
             foreach (var item in selectedobject.Positions)
             {
-                var check = tileMap.TileMapMatrix[item.X, item.Y].Pass(position, item, tileMap);
+                Position destination = new Position(position.X + item.X, position.Y + item.Y);
+                var check = tileMap.TileMapMatrix[destination.X, destination.Y].Pass(position, destination, tileMap);
 
                 if (check)
                 {
-                    tileMap.TileMapMatrix[item.X, item.Y].Color = ConsoleColor.Green;
+                    tileMap.TileMapMatrix[destination.X, destination.Y].Color = ConsoleColor.Green;
                     Console.WriteLine("[Check] " + check);
                 }
-                else Console.WriteLine("[Check - False] My char is " + tileMap.TileMapMatrix[item.X, item.Y].CurrentTileObject.TileObjectChar);
+                else Console.WriteLine("[Check - False] My char is " + tileMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject.TileObjectChar);
             }
 
             SelectedTileObject = tileMap.TileMapMatrix[position.X, position.Y].CurrentTileObject;
         }
         private static void DeSelect()
         {
-            foreach (var position in SelectedTileObject.Positions)
+            Position currentPos = new Position(SelectedTileObject.CurrentPos.X, SelectedTileObject.CurrentPos.Y);
+            foreach (var item in SelectedTileObject.Positions)
             {
-                if (position.X % 2 == 0 && position.Y % 2 == 0)
+                Position deleteAt = new Position(currentPos.X + item.X, currentPos.Y + item.Y);
+                if (deleteAt.X % 2 == 0 && deleteAt.Y % 2 == 0)
                 {
-                    var check = CommandtileMap.TileMapMatrix[position.X, position.Y].Pass(SelectedTileObject.CurrentPos, position, CommandtileMap);
+                    var check = CommandtileMap.TileMapMatrix[deleteAt.X, deleteAt.Y].Pass(currentPos, deleteAt, CommandtileMap);
                     if (check) //checks if target is a border tile, if it isn't, dye it back
                     {
-                        CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
+                        CommandtileMap.TileMapMatrix[deleteAt.X, deleteAt.Y].Color = ConsoleColor.White;
                     }
                 }
-                else if (position.X % 2 != 0 && position.Y % 2 != 0)
+                else if (deleteAt.X % 2 != 0 && deleteAt.Y % 2 != 0)
                 {
-                    var check = CommandtileMap.TileMapMatrix[position.X, position.Y].Pass(SelectedTileObject.CurrentPos, position, CommandtileMap);
+                    var check = CommandtileMap.TileMapMatrix[deleteAt.X, deleteAt.Y].Pass(currentPos, deleteAt, CommandtileMap);
                     if (check) //checks if target is a border tile, if it isn't, dye it back
                     {
-                        CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
+                        CommandtileMap.TileMapMatrix[deleteAt.X, deleteAt.Y].Color = ConsoleColor.White;
                     }
                 }
                 else
                 {
-                    var check = CommandtileMap.TileMapMatrix[position.X, position.Y].Pass(SelectedTileObject.CurrentPos, position, CommandtileMap);
+                    var check = CommandtileMap.TileMapMatrix[deleteAt.X, deleteAt.Y].Pass(currentPos, deleteAt, CommandtileMap);
                     if (check) //checks if target is a border tile, if it isn't, dye it back
                     {
-                        CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.Gray;
+                        CommandtileMap.TileMapMatrix[deleteAt.X, deleteAt.Y].Color = ConsoleColor.Gray;
                     }
                 }
             }
@@ -67,21 +70,23 @@ namespace Commands
             SelectedTileObject = null;
         }
 
-        private static bool TryMoveCommand(Position destiniedLocation)
+        private static bool TryMoveCommand(Position destinedLocation)
         {
-            foreach (Position pos in SelectedTileObject.Positions)
+            Position currentPos = new Position(SelectedTileObject.CurrentPos.X, SelectedTileObject.CurrentPos.Y);
+            foreach (Position item in SelectedTileObject.Positions)
             {
-                if (destiniedLocation.X <= 0 || destiniedLocation.Y <= 0 || destiniedLocation.X >= CommandtileMap.TileMapMatrix.GetLength(0) - 1
-                    || destiniedLocation.Y >= CommandtileMap.TileMapMatrix.GetLength(1) - 1) //Doesn't let the player wander outside the board
+                var check = CommandtileMap.TileMapMatrix[destinedLocation.X, destinedLocation.Y].Pass(currentPos, destinedLocation, CommandtileMap);
+
+                if (!check)
                 {
-                    Console.WriteLine("outside the board!");
+                    Console.WriteLine("can't move there!");
                     return false;
                 }
-                if (pos.X == destiniedLocation.X && pos.Y == destiniedLocation.Y) //Add condition to check what is in the destined location and how to handle it
+                if (item.X + currentPos.X == destinedLocation.X && item.Y + currentPos.Y == destinedLocation.Y)
                 {
                     DeSelect();
-                    CommandtileMap.MoveTileObject(SelectedTileObject, destiniedLocation);
-                    Console.WriteLine(SelectedTileObject.Positions[0]);
+                    CommandtileMap.MoveTileObject(SelectedTileObject, destinedLocation);
+                    Console.WriteLine(SelectedTileObject.Positions[0].X + SelectedTileObject.CurrentPos.X + ", " + SelectedTileObject.Positions[0].Y + SelectedTileObject.CurrentPos.Y);
                     ForgetSelected();
                     return true;
                 }
