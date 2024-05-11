@@ -61,7 +61,7 @@ namespace CoreEngineHierarchy
         /// <summary>
         /// Allow to add tile maps
         /// </summary>
-        public void InsertObjectToMap(TileObject objectToInsert, Position whereToInsert) //TODO set a limiter to not step outside the array
+        public void InsertObjectToMap(TileObject objectToInsert, Position whereToInsert)
         {
             TileMapMatrix[whereToInsert.X, whereToInsert.Y].CurrentTileObject = objectToInsert;
         }
@@ -69,7 +69,7 @@ namespace CoreEngineHierarchy
         /// <summary>
         /// Deletes a TileObject from the map
         /// </summary>
-        public void DeleteTileObjectAtPos(Position newPos) //TODO set limiters and addetives to acknoledge the frame
+        public void DeleteTileObjectAtPos(Position newPos)
         {
             //var newObject = new TileObject(" ", new Position[] { }, newPos, TileMapMatrix[newPos.X + 1, newPos.Y + 1].CurrentTileObject.Color);
             var newObject = new TileObject(" ", new Position[] { }, newPos, ConsoleColor.Black);
@@ -79,11 +79,11 @@ namespace CoreEngineHierarchy
         /// <summary>
         /// Moves a TileObject to a location
         /// </summary>
-        public void MoveTileObject(TileObject tileObject, Position newPos) //TODO set limiters and addetives to acknoledge the frame
+        public void MoveTileObject(TileObject tileObject, Position newPos)
         {
             var newObject = new TileObject(tileObject.TileObjectChar, tileObject.Positions, new Position(newPos.X, newPos.Y), tileObject.Owner);
             //TODO acknowledge current positions and move according to them
-            newObject.Positions[0] = new Position(newObject.CurrentPos.X + 1, newObject.CurrentPos.Y + 1);
+            newObject.Positions[0] = new Position(newObject.CurrentPos.X + 1, newObject.CurrentPos.Y + 1); //TODO fix
             newObject.Positions[1] = new Position(newObject.CurrentPos.X - 1, newObject.CurrentPos.Y + 1);
             InsertObjectToMap(newObject, newPos);
             DeleteTileObjectAtPos(tileObject.CurrentPos);

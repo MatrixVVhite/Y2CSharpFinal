@@ -14,7 +14,7 @@ namespace CoreEngineHierarchy
         public ConsoleColor Color { get; set; }
 
         /// <summary>
-        /// Dictionary with the possibale possitions on the board
+        /// Dictionary with the possibale positions on the board
         /// </summary>
         public List<Position> PossiblePositions { get; internal set; }
 
@@ -55,5 +55,36 @@ namespace CoreEngineHierarchy
             CurrentPos = startingPos;
         }
 
+        /// <summary>
+        /// Clones the tileObject on the same position
+        /// </summary>
+        public TileObject Clone()
+        {
+            return new TileObject(TileObjectChar, Positions, CurrentPos, Owner);
+        }
+
+        /// <summary>
+        /// Clones the tileObject to a different position
+        /// </summary>
+        public TileObject CloneToPos(Position newPos)
+        {
+            return new TileObject(TileObjectChar, Positions, newPos, Owner);
+        }
+
+        /// <summary>
+        /// Clones the ownerless tileObject on the same position
+        /// </summary>
+        public TileObject CloneOwnerless()
+        {
+            return new TileObject(TileObjectChar, Positions, CurrentPos, Color);
+        }
+
+        /// <summary>
+        /// Clones the ownerless tileObject to a different position
+        /// </summary>
+        public TileObject CloneToPosOwnerless(Position newPos)
+        {
+            return new TileObject(TileObjectChar, Positions, newPos, Color);
+        }
     }
 }
