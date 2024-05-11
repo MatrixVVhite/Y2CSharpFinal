@@ -38,15 +38,27 @@ namespace Commands
             {
                 if (position.X % 2 == 0 && position.Y % 2 == 0)
                 {
-                    CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
+                    if (position.X >= 1 && position.Y >= 1 && position.X <= CommandtileMap.TileMapMatrix.GetLength(0) - 1 
+                        && position.Y <= CommandtileMap.TileMapMatrix.GetLength(1) - 1) //checks if target is a border tile, if it isn't, dye it back
+                    {
+                        CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
+                    }
                 }
                 else if (position.X % 2 != 0 && position.Y % 2 != 0)
                 {
-                    CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
+                    if (position.X >= 1 && position.Y >= 1 && position.X <= CommandtileMap.TileMapMatrix.GetLength(0) - 1
+                        && position.Y <= CommandtileMap.TileMapMatrix.GetLength(1) - 1) //checks if target is a border tile, if it isn't, dye it back
+                    {
+                        CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
+                    }
                 }
                 else
                 {
-                    CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.Gray;
+                    if (position.X >= 1 && position.Y >= 1 && position.X <= CommandtileMap.TileMapMatrix.GetLength(0) - 1
+                        && position.Y <= CommandtileMap.TileMapMatrix.GetLength(1) - 1) //checks if target is a border tile, if it isn't, dye it back
+                    {
+                        CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.Gray;
+                    }
                 }
             }
         }
@@ -59,13 +71,18 @@ namespace Commands
         {
             foreach (Position pos in SelectedTileObject.Positions)
             {
-                
-                if (pos.X == destiniedLocation.X && pos.Y == destiniedLocation.Y)
+                if (destiniedLocation.X <= 0 || destiniedLocation.Y <= 0 || destiniedLocation.X >= CommandtileMap.TileMapMatrix.GetLength(0) - 1
+                    || destiniedLocation.Y >= CommandtileMap.TileMapMatrix.GetLength(1) - 1) //Doesn't let the player wander outside the board
+                {
+                    Console.WriteLine("outside the board!");
+                    return false;
+                }
+                if (pos.X == destiniedLocation.X && pos.Y == destiniedLocation.Y) //Add condition to check what is in the destined location and how to handle it
                 {
                     DeSelect();
                     CommandtileMap.MoveTileObject(SelectedTileObject, destiniedLocation);
                     Console.WriteLine(SelectedTileObject.Positions[0]);
-                   ForgetSelected();
+                    ForgetSelected();
                     return true;
                 }
                 else

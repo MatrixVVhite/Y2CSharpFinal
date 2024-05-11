@@ -31,15 +31,6 @@ namespace CoreEngineHierarchy
                     {
                         TileColor = ConsoleColor.Black;
 
-                        //if (j < TileMapMatrix.GetLength(1) / 2) // Check if j is less than half of the width
-                        //{
-                        //    TileColor = ConsoleColor.Red;
-                        //}
-                        //else
-                        //{
-                        //    TileColor = ConsoleColor.Green;
-                        //}
-
                         if (i % 2 == 0)
                         {
                             if (j % 2 == 0)
