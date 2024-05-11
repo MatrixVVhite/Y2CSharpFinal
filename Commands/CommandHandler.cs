@@ -20,7 +20,7 @@ namespace Commands
             Console.WriteLine("Selected Tile Object " + selectedobject.TileObjectChar);
             foreach (var item in selectedobject.Positions)
             {
-                var check = tileMap.TileMapMatrix[item.X, item.Y].Pass(item, tileMap);
+                var check = tileMap.TileMapMatrix[item.X, item.Y].Pass(position, item, tileMap);
 
                 if (check)
                 {
@@ -38,24 +38,24 @@ namespace Commands
             {
                 if (position.X % 2 == 0 && position.Y % 2 == 0)
                 {
-                    if (position.X >= 1 && position.Y >= 1 && position.X <= CommandtileMap.TileMapMatrix.GetLength(0) - 1 
-                        && position.Y <= CommandtileMap.TileMapMatrix.GetLength(1) - 1) //checks if target is a border tile, if it isn't, dye it back
+                    var check = CommandtileMap.TileMapMatrix[position.X, position.Y].Pass(SelectedTileObject.CurrentPos, position, CommandtileMap);
+                    if (check) //checks if target is a border tile, if it isn't, dye it back
                     {
                         CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
                     }
                 }
                 else if (position.X % 2 != 0 && position.Y % 2 != 0)
                 {
-                    if (position.X >= 1 && position.Y >= 1 && position.X <= CommandtileMap.TileMapMatrix.GetLength(0) - 1
-                        && position.Y <= CommandtileMap.TileMapMatrix.GetLength(1) - 1) //checks if target is a border tile, if it isn't, dye it back
+                    var check = CommandtileMap.TileMapMatrix[position.X, position.Y].Pass(SelectedTileObject.CurrentPos, position, CommandtileMap);
+                    if (check) //checks if target is a border tile, if it isn't, dye it back
                     {
                         CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.White;
                     }
                 }
                 else
                 {
-                    if (position.X >= 1 && position.Y >= 1 && position.X <= CommandtileMap.TileMapMatrix.GetLength(0) - 1
-                        && position.Y <= CommandtileMap.TileMapMatrix.GetLength(1) - 1) //checks if target is a border tile, if it isn't, dye it back
+                    var check = CommandtileMap.TileMapMatrix[position.X, position.Y].Pass(SelectedTileObject.CurrentPos, position, CommandtileMap);
+                    if (check) //checks if target is a border tile, if it isn't, dye it back
                     {
                         CommandtileMap.TileMapMatrix[position.X, position.Y].Color = ConsoleColor.Gray;
                     }

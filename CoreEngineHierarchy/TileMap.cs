@@ -81,7 +81,7 @@ namespace CoreEngineHierarchy
         /// </summary>
         public void MoveTileObject(TileObject tileObject, Position newPos) //TODO set limiters and addetives to acknoledge the frame
         {
-            var newObject = new TileObject(tileObject.TileObjectChar, tileObject.Positions, new Position(newPos.X, newPos.Y), tileObject.Color);
+            var newObject = new TileObject(tileObject.TileObjectChar, tileObject.Positions, new Position(newPos.X, newPos.Y), tileObject.Owner);
             //TODO acknowledge current positions and move according to them
             newObject.Positions[0] = new Position(newObject.CurrentPos.X + 1, newObject.CurrentPos.Y + 1);
             newObject.Positions[1] = new Position(newObject.CurrentPos.X - 1, newObject.CurrentPos.Y + 1);
