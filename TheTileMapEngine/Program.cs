@@ -11,7 +11,7 @@ namespace TheTileMapEngine
             (int, int) boardSize = (8, 8);
             TileMapEngine.GetInstance().InitializeChessBoard(boardSize.Item1, boardSize.Item2);
 
-            //Use thos template to generate teams
+            //Use this template to generate teams
             Position[] team1Positions = new Position[boardSize.Item1];
             Position[] team2Positions = new Position[boardSize.Item1];
 
