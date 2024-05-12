@@ -9,14 +9,18 @@ namespace TheTileMapEngine
 {
     public class TileMapEngine
     {
-        public static int InitialSizeX { get; set; } = 10; // default value
-        public static int InitialSizeY { get; set; } = 10; // default value
+        public int InitialSizeX { get; set; } = 10; // default value
+        public int InitialSizeY { get; set; } = 10; // default value
 
 
         private static TileMapEngine _instance;
         private RenderingEngine _renderingEngine;
         private TileMap _addTiles;
 
+        /// <summary>
+        /// Template of an headline
+        /// </summary>
+        /// <param name="Title"></param>
         public void CreateHeadLine(string Title)
         {
             Console.WriteLine("   _   _   _   _   _    ");
@@ -26,7 +30,11 @@ namespace TheTileMapEngine
         }
 
 
-        public TileMapEngine()
+        /// <summary>
+        /// singletone
+        /// </summary>
+        /// <returns></returns>
+        private TileMapEngine()
         {
             _renderingEngine = new RenderingEngine(InitialSizeX, InitialSizeY);
             _addTiles = new TileMap(InitialSizeX, InitialSizeY);
@@ -37,6 +45,10 @@ namespace TheTileMapEngine
             return _instance ?? (_instance = new TileMapEngine());
         }
 
+        /// <summary>
+        /// Initialize of necessery parameters
+        /// </summary>
+        /// <returns></returns>
         public void Initialize(int sizeX, int sizeY)
         {
             InitialSizeX = sizeX + 2;
@@ -45,6 +57,10 @@ namespace TheTileMapEngine
             _addTiles = new TileMap(InitialSizeX, InitialSizeY);
         }
 
+        /// <summary>
+        /// Set the chess size
+        /// </summary>
+        /// <returns></returns>
         public RenderingEngine InitializeChessBoard(int sizeX, int sizeY)
         {
             Initialize(sizeX, sizeY);
@@ -53,41 +69,51 @@ namespace TheTileMapEngine
             return _renderingEngine;
         }
 
-        public void Template(string gameType, string pieceColor, Position[] team1Positions, Position[] team2Positions)
-        { //TODO Make it work with chess & 2 colors
-            char[] pieces = GetPieces(gameType);
-            ConsoleColor pieceConsoleColor = GetPieceColor(pieceColor);
 
-            for (int i = 0; i < team1Positions.Length; i++)
-            {
-                TileObject to = new TileObject(pieces[i].ToString(), new Position[] { }, new Position(4, 4), pieceConsoleColor);
-                _addTiles.InsertObjectToMap(to, team1Positions[i]);
-            }
-
-            for (int i = 0; i < team2Positions.Length; i++)
-            {
-                TileObject to = new TileObject(pieces[i].ToString(), new Position[] { }, new Position(4, 4), pieceConsoleColor);
-                _addTiles.InsertObjectToMap(to, team2Positions[i]);
-            }
-
+        /// <summary>
+        /// Update board
+        /// </summary>
+        /// <returns></returns>
+        public void UpdateBoard()
+        {
             _renderingEngine.UpdateAndRender(_addTiles);
         }
 
-        private char[] GetPieces(string gameType)
+
+        /// <summary>
+        /// Template of checkers that the player could use if want to or put any other string
+        /// </summary>
+        /// <returns></returns>
+        public void Template_Checkers(string gameType, string pieceColor, Position position)
+        {
+            char pieces = GetPieces(gameType);
+            ConsoleColor pieceConsoleColor = GetPieceColor(pieceColor);
+
+            TileObject to1 = new TileObject(pieces.ToString(), new Position[] { }, new Position(1, 1), pieceConsoleColor);
+            _addTiles.InsertObjectToMap(to1, position);
+        }
+
+
+        /// <summary>
+        /// Piece template
+        /// </summary>
+        /// <returns></returns>
+        private char GetPieces(string gameType)
         {
             switch (gameType.ToLower())
             {
                 case "checkers":
-                    return new char[] { 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o' };
-
-                case "chess":
-                    return new char[] { '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜', '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖' };
+                    return 'o';
 
                 default:
                     throw new ArgumentException("Invalid game type", nameof(gameType));
             }
         }
 
+        /// <summary>
+        /// Color template
+        /// </summary>
+        /// <returns></returns>
         private ConsoleColor GetPieceColor(string pieceColor)
         {
             switch (pieceColor.ToLower())
@@ -95,7 +121,7 @@ namespace TheTileMapEngine
                 case "black":
                     return ConsoleColor.Black;
                 case "white":
-                    return ConsoleColor.White;
+                    return ConsoleColor.DarkYellow;
                 default:
                     throw new ArgumentException("Invalid piece color", nameof(pieceColor));
             }
@@ -128,7 +154,6 @@ namespace TheTileMapEngine
 
         internal static void HandleTurns()
         {
-            // Logic to add as many as the user want actors...
             for (int i = 0; i < NumberOfPlayers; i++)
             {
                 if (i > 0)
