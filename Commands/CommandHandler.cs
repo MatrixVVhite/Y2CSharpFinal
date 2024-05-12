@@ -12,6 +12,46 @@ namespace Commands
         public static TileMap CommandtileMap { get; set; }
 
         private static List<Char> chars = new List<Char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+
+        public static List<Command> commandList= [];
+        public static Action<Command> AddNameDescription; //Name and description of the new commands
+
+
+        public static void HandleCommands()
+        {
+            AddNameDescription += AddToHelpList;
+            Command SelectCommand = new("Select", "Does Something", Select);
+            AddCommandNameAndDescription(SelectCommand);
+            Command Move = new("Move", "Does Something", TryMoveCommand);
+            AddCommandNameAndDescription(Move);
+            Command DeselectCommand = new("Deselct", "Does Something",DeSelect);
+            AddCommandNameAndDescription(DeselectCommand);
+        }
+
+        //Use this method to add your command to the command list
+        public static void  AddCommandNameAndDescription(Command newCommand)
+        {
+            AddNameDescription.Invoke(newCommand);
+        }
+
+        public static void  Example(object xy)
+        {
+            Console.WriteLine(xy);
+        }
+        public static  void  AddToHelpList(Command command)
+        {
+            commandList.Add(command);
+        }
+        public static void Help()
+        {
+            foreach (var item in commandList)
+            {
+                Console.WriteLine(item.Name + " " + item.Description);
+                Console.WriteLine("--------------");
+            }
+        }
+
+
         private static void Select(Position position, TileMap tileMap, RenderingEngine renderer)
         {
             CommandtileMap = tileMap;
@@ -76,13 +116,6 @@ namespace Commands
             return false;
         }
 
-        private static void Help()
-        {
-            Console.WriteLine("//These are the available commands:");
-            Console.WriteLine("//1.Select");
-            Console.WriteLine("//2.Deselect");
-            Console.WriteLine("//3.Move");
-        }
         private static string ResetInput()
         {
             var newInput = Console.ReadLine();
@@ -108,7 +141,7 @@ namespace Commands
                         if (char.IsLetter(first) && char.IsNumber(last))
                         {
                             Console.WriteLine("Diagnose Print " + value2 + value);
-                            Select(new Position(chars.IndexOf(value2) + 1, (int)value), tileMap, renderer);
+                            commandList[0].select.Invoke(new Position(chars.IndexOf(value2) + 1, (int)value), tileMap, renderer);
                         }
                         else
                         {
@@ -125,7 +158,8 @@ namespace Commands
                     break;
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 case "deselect":
-                    DeSelect();
+                    //DeSelect();
+                    commandList[2].Action.Invoke();
                     ForgetSelected();
                     break;
                 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,7 +175,7 @@ namespace Commands
                         if (char.IsLetter(first) && char.IsNumber(last))
                         {
                             Console.WriteLine("Diagnose Print " + value2 + value);
-                            if (TryMoveCommand(new Position(chars.IndexOf(value2) + 1, (int)value)))
+                            if (commandList[1].move.Invoke(new Position(chars.IndexOf(value2) + 1, (int)value)))
                             {
                                 break;
                             }

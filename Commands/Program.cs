@@ -8,6 +8,7 @@ namespace Commands
     {
         static void Main(string[] args)
         {
+            CommandHandler.HandleCommands();
             RenderingEngine tmr = new RenderingEngine(8, 8);
             TileMap myTileMap = new TileMap(8, 8);
             CoreEngineHierarchy.TileObject to2 = new CoreEngineHierarchy.TileObject("P", new Position[] { new Position(0, 0), new Position(0, 0) }, new Position(2, 2), ConsoleColor.Red);
