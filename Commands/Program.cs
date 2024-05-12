@@ -42,6 +42,7 @@ namespace Commands
 
             while (true)
             {
+                Console.SetCursorPosition(0, myTileMap.TileMapMatrix.GetLength(0) + 1);
                 CommandHandler.DiagnoseCommand(Console.ReadLine(), myTileMap, tmr);
                 tmr.UpdateAndRender(myTileMap);
             }
