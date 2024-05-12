@@ -24,11 +24,13 @@ namespace CoreEngineHierarchy
             throw new NotImplementedException();
         }
 
-        public bool Pass(Position destination, TileMap currentMap)
+        public bool Pass(Position startingPos, Position destination, TileMap currentMap)
         {
-            return (destination.X < currentMap.TileMapMatrix.GetLength(0) &&
-                destination.Y < currentMap.TileMapMatrix.GetLength(1) &&
-                currentMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject.TileObjectChar == " ");
+            return (destination.X < currentMap.TileMapMatrix.GetLength(0) - 1 &&
+                destination.Y < currentMap.TileMapMatrix.GetLength(1) - 1 &&
+                destination.X > 0 && destination.Y > 0 &&
+                (currentMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject.Owner != currentMap.TileMapMatrix[startingPos.X, startingPos.Y].CurrentTileObject.Owner
+                || currentMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject.Owner == null));
         }
 
         public Tile(Position index, ConsoleColor tileColor, TileObject currentTileObject)

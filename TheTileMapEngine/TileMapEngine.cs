@@ -48,8 +48,7 @@ namespace TheTileMapEngine
         public RenderingEngine InitializeChessBoard(int sizeX, int sizeY)
         {
             Initialize(sizeX, sizeY);
-            _renderingEngine.ReplaceMap(_addTiles);
-            _renderingEngine.DisplayAllTiles();
+            _renderingEngine.UpdateAndRender(_addTiles);
 
             return _renderingEngine;
         }
@@ -71,8 +70,7 @@ namespace TheTileMapEngine
                 _addTiles.InsertObjectToMap(to, team2Positions[i]);
             }
 
-            _renderingEngine.ReplaceMap(_addTiles);
-            _renderingEngine.DisplayAllTiles();
+            _renderingEngine.UpdateAndRender(_addTiles);
         }
 
         private char[] GetPieces(string gameType)

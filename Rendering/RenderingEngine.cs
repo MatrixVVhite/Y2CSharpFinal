@@ -17,7 +17,7 @@ namespace Rendering
         /// <summary>
         ///  Replaces the current map with a new one, need to put on some consraints later
         /// </summary>
-        public void ReplaceMap(TileMap tiles)
+        private void ReplaceMap(TileMap tiles)
         {
             Console.Clear();
             _tiles = tiles;
@@ -41,7 +41,7 @@ namespace Rendering
         }
 
         /// <summary>
-        ///  Resets the map and displays it
+        ///  Updates the map and displays it
         /// </summary>
         public void UpdateAndRender(TileMap tma)
         {
@@ -105,7 +105,7 @@ namespace Rendering
         /// <summary>
         ///  Displays all tiles to the console
         /// </summary>
-        public void DisplayAllTiles()
+        private void DisplayAllTiles()
         {
             for (int y = 0; y < _tilesToRender.GetLength(0); y++)
             {
