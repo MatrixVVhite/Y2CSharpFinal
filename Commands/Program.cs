@@ -17,7 +17,7 @@ namespace Commands
             TileObject to1 = new TileObject("E", new Position[] { new Position(0, 0), new Position(0, 0) }, new Position(2, 2), p1);
             to1.Positions[0] = new Position(1 * to1.Owner.MovesToX, 1 * to1.Owner.MovesToY);
             to1.Positions[1] = new Position(-1 * to1.Owner.MovesToX, 1 * to1.Owner.MovesToY);
-            TileObject to3 = to1.CloneToPos(new Position(4, 4));
+            TileObject to3 = (TileObject)to1.CloneToPos(new Position(4, 4));
             TileObject to2 = new TileObject("P", new Position[] { new Position(0, 0), new Position(0, 0) }, new Position(2, 4), p2);
             to2.Positions[0] = new Position(1 * to2.Owner.MovesToX, 1 * to2.Owner.MovesToY);
             to2.Positions[1] = new Position(-1 * to2.Owner.MovesToX, 1 * to2.Owner.MovesToY);
