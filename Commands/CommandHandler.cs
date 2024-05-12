@@ -18,9 +18,6 @@ namespace Commands
 
         public static Action<Command> AddNameDescription; //Name and description of the new commands
 
-
-
-
         public static void HandleCommands()
         {
            
@@ -69,9 +66,7 @@ namespace Commands
                 if (check)
                 {
                     tileMap.TileMapMatrix[destination.X, destination.Y].Color = ConsoleColor.Green;
-                    Console.WriteLine("[Check] " + check);
                 }
-                else Console.WriteLine("[Check - False] My char is " + tileMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject.TileObjectChar);
             }
 
             SelectedTileObject = tileMap.TileMapMatrix[position.X, position.Y].CurrentTileObject;
@@ -192,7 +187,6 @@ namespace Commands
                     break;
                 }
                 else commandSucc = false;
-                
             }
             if (!commandSucc)
             {
