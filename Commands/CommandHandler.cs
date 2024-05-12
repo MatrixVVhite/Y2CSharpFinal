@@ -9,18 +9,21 @@ namespace Commands
 {
     public static class CommandHandler
     {
-        public static TileObject SelectedTileObject { get; set; }
-        public static TileMap CommandtileMap { get; set; }
+        private static TileObject SelectedTileObject { get; set; } //ref
+        private static TileMap CommandtileMap { get; set; } //ref
 
-        private static List<Char> chars = new List<Char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+        private static List<Char> chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']; //used for select
 
-        public static List<Command> commandList= [];
+        private static List<Command> commandList= []; //List Of Commands avialable for use
 
-        public static Action<Command> AddNameDescription; //Name and description of the new commands
+        private static Action<Command> AddNameDescription; //Name and description of the new commands
 
+        /// <summary>
+        /// This method handles all the commands.
+        /// Create a new Command (Class) and use method AddCommandNameAndDescription with (New Command instance inside)
+        /// </summary>
         public static void HandleCommands()
         {
-           
             AddNameDescription += AddToHelpList;
             Command SelectCommand = new("Select","Select your desired pawn", Select,true);
             AddCommandNameAndDescription(SelectCommand);
@@ -28,30 +31,40 @@ namespace Commands
             AddCommandNameAndDescription(DeselectCommand);
             Command MoveCommand = new("Move", "Move your selected pawn to a marked position of your choice", TryMoveCommand,true);
             AddCommandNameAndDescription(MoveCommand);
-            Command helpCommand = new("Help","Display all commands",Help,false);
+            Command HelpCommand = new("Help", "Display all commands", Help, false);
+            AddCommandNameAndDescription(HelpCommand);
         }
 
         //Use this method to add your command to the command list
-        public static void  AddCommandNameAndDescription(Command newCommand)
+        private static void  AddCommandNameAndDescription(Command newCommand)
         {
             AddNameDescription.Invoke(newCommand);
         }
-
-        public static  void  AddToHelpList(Command command)
+        /// <summary>
+        /// This adds the commands to the help list. Invoked by AddCommandNameAndDescription
+        /// </summary>
+        /// <param name="command"></param>
+        private static  void  AddToHelpList(Command command)
         {
             commandList.Add(command);
         }
-        public static bool Help(Position position, TileMap tileMap, RenderingEngine renderer)
+        private static bool Help(Position position, TileMap tileMap, RenderingEngine renderer)
         {
+            int index = 1;
             foreach (var item in commandList)
             {
-                Console.WriteLine(item.Name + " " + item.Description);
-                Console.WriteLine("--------------");
+                Console.SetCursorPosition((chars.Count+2)*3,index);
+                Console.WriteLine(item.Name + " - " + item.Description);
+                index++;
             }
+            Console.SetCursorPosition((chars.Count + 2) * 3, index+1);
+            Console.WriteLine("Press Any key To continue...");
+            Console.SetCursorPosition(0, (chars.Count + 1));
+            Console.ReadKey();
             return false;
         }
 
-      
+
         private static bool Select(Position position, TileMap tileMap, RenderingEngine renderer)
         {
             CommandtileMap = tileMap;
@@ -60,7 +73,7 @@ namespace Commands
             Console.WriteLine("Selected Tile Object " + selectedobject.TileObjectChar);
             foreach (var item in selectedobject.Positions)
             {
-                Position destination = new Position(position.X + item.X, position.Y + item.Y);
+                Position destination = new (position.X + item.X, position.Y + item.Y);
                 var check = tileMap.TileMapMatrix[destination.X, destination.Y].Pass(position, destination, tileMap);
 
                 if (check)
@@ -76,6 +89,7 @@ namespace Commands
         
         private static bool DeSelect(Position position, TileMap tileMap, RenderingEngine renderer)
         {
+            
             Position currentPos = new Position(SelectedTileObject.CurrentPos.X, SelectedTileObject.CurrentPos.Y);
             foreach (var item in SelectedTileObject.Positions)
             {
@@ -144,24 +158,27 @@ namespace Commands
             SelectedTileObject = null;
         }
 
-        public static (int, int) ReturnPosition()
+        private static (int, int) ReturnPosition()
         {
+            
             Console.WriteLine("Choose a tile");
             var tile = Console.ReadLine();
             if (!string.IsNullOrEmpty(tile) && tile.Length == 2)
             {
                 char first = tile.First();
                 char last = tile.Last();
-                var value = char.GetNumericValue(last);
-                var value2 = char.ToLower(first);
-                if (char.IsLetter(first) && char.IsNumber(last))
+                var x = char.ToLower(first);
+                var y = char.GetNumericValue(last);
+                if (char.IsLetter(first) && char.IsNumber(last) && chars.IndexOf(x) + 1 <= chars.Count - 2 && y <= chars.Count-2 )
                 {
-                    Console.WriteLine("Diagnose Print " + value2 + value);
-                    return (chars.IndexOf(value2) + 1, (int)value);
+                    Console.WriteLine("Diagnose Print " + x + y);
+                    return (chars.IndexOf(x) + 1, (int)y);
                 }
                 else
                 {
-                    Console.WriteLine("Wrong tile");
+                    Console.WriteLine("Wrong position");
+                    Console.WriteLine("Press Any key To continue...");
+                    Console.ReadKey();
                 }
             }
             return (0, 0);
@@ -170,7 +187,7 @@ namespace Commands
         public static void DiagnoseCommand(string input, TileMap tileMap, Rendering.RenderingEngine renderer)
         {
             bool commandSucc=false ;
-
+           
             for (int i = 0; i < commandList.Count; i++)
             {
                 if (input.ToLower() == commandList[i].Name.ToLower() && commandList[i].PosReq)
@@ -192,6 +209,8 @@ namespace Commands
             {
                 renderer.UpdateAndRender(tileMap);
                 Help(new Position(0, 0), tileMap, renderer);
+                renderer.UpdateAndRender(tileMap);
+                Console.SetCursorPosition(0, (chars.Count + 1));
                 DiagnoseCommand(Console.ReadLine(), tileMap, renderer);
             } 
         }
