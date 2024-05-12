@@ -8,7 +8,7 @@ namespace Commands
     {
         static void Main(string[] args)
         {
-            CommandHandler.HandleCommands();
+           
             RenderingEngine tmr = new RenderingEngine(8, 8);
             TileMap myTileMap = new TileMap(8, 8);
 
@@ -38,14 +38,11 @@ namespace Commands
             }
 
             tmr.UpdateAndRender(myTileMap);
-            string command = Console.ReadLine();
-            CommandHandler.DiagnoseCommand(command, myTileMap, tmr);
-            tmr.UpdateAndRender(myTileMap);
+            CommandHandler.HandleCommands();
 
             while (true)
             {
-                command = Console.ReadLine();
-                CommandHandler.DiagnoseCommand(command, myTileMap, tmr);
+                CommandHandler.DiagnoseCommand(Console.ReadLine(), myTileMap, tmr);
                 tmr.UpdateAndRender(myTileMap);
             }
         }
