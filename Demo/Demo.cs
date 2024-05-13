@@ -66,7 +66,7 @@ namespace Demo
         public void Start_Game()
         {
             HundleTurns.AddTurns(1, 2);
-            TheEngine.GetInstance().InitializeChessBoard(8,8);
+            TheEngine.GetInstance().InitializeChessBoard(9,9);
            
             for (int i = 1; i < 9; i++)
             {

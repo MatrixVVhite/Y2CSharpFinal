@@ -81,11 +81,13 @@ namespace NewTileMapEngine
         }
         
         /// <summary>
-        /// Set the chess size
+        /// Set the chess size (max size is 8 by 8)
         /// </summary>
         /// <returns></returns>
         public RenderingEngine InitializeChessBoard(int sizeX, int sizeY)
         {
+            if(sizeX>=8) { sizeX = 8; }
+            if(sizeY>=8) { sizeY = 8; }
             Initialize(sizeX, sizeY);
 
             return _renderingEngine;
