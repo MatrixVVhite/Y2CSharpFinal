@@ -1,5 +1,5 @@
 ﻿using Positioning;
-using TheTileMapEngine;
+using TileMpaTheEngine;
 
 namespace Demo
 {
@@ -22,7 +22,7 @@ namespace Demo
         public void OpenScene()
         {
             Console.WriteLine();
-            TileMapEngine.GetInstance().CreateHeadLine("Checkers");
+            TheEngine.GetInstance().CreateHeadLine("Checkers");
             Console.WriteLine();
 
             string _new_game = "------ To start a game enter 1 ------";
@@ -64,27 +64,41 @@ namespace Demo
 
         public void Start_Game()
         {
-            TileMapEngine.GetInstance().InitializeChessBoard(8, 8);
+            //TheEngine.GetInstance().InitializeChessBoard(8, 8);
+
+            //for (int i = 1; i < 7; i++)
+            //{
+            //    for (int j = 1; j < 3; j++)
+            //    {
+            //        TheEngine.GetInstance().Template_Checkers("checkers", "black", new Position(i, j));
+            //    }
+
+            //    for (int j = 5; j < 7; j++)
+            //    {
+            //        TheEngine.GetInstance().Template_Checkers("checkers", "white", new Position(i, j));
+            //    }
+            //}
+
+            TheEngine.GetInstance().InitializeChessBoard(8, 8);
 
             for (int i = 1; i < 7; i++)
             {
                 for (int j = 1; j < 3; j++)
                 {
-                    TileMapEngine.GetInstance().Template("checkers", "black", new Position(i, j));
+                    TheEngine.GetInstance().Template_Checkers("checkers", "black", new Position(i, j));
                 }
 
                 for (int j = 5; j < 7; j++)
                 {
-                    TileMapEngine.GetInstance().Template("checkers", "white", new Position(i, j));
+                    TheEngine.GetInstance().Template_Checkers("checkers", "white", new Position(i, j));
                 }
             }
 
+            TheEngine.GetInstance().UpdateBoard();
+
             while (true)
             {
-
             }
-
-            //TileMapEngine.GetInstance().
         }
     }
 }

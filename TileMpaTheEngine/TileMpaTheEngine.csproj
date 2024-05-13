@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="CoreEngineHierarchy">
+      <HintPath>..\..\..\TileMapEngine\TileMapEngine\TheTileMapEngine\bin\Debug\net6.0\CoreEngineHierarchy.dll</HintPath>
+    </Reference>
+    <Reference Include="MovmentAndInteraction">
+      <HintPath>..\..\..\TileMapEngine\TileMapEngine\MovmentAndInteraction\bin\Debug\net6.0\MovmentAndInteraction.dll</HintPath>
+    </Reference>
+    <Reference Include="Positioning">
+      <HintPath>..\..\..\TileMapEngine\TileMapEngine\TheTileMapEngine\bin\Debug\net6.0\Positioning.dll</HintPath>
+    </Reference>
+    <Reference Include="Rendering">
+      <HintPath>..\..\..\TileMapEngine\TileMapEngine\TheTileMapEngine\bin\Debug\net6.0\Rendering.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -8,14 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TileMpaTheEngine\TileMpaTheEngine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Positioning">
       <HintPath>..\..\..\TileMapEngine\TileMapEngine\Rendering\bin\Debug\net6.0\Positioning.dll</HintPath>
     </Reference>
     <Reference Include="Rendering">
       <HintPath>..\..\..\TileMapEngine\TileMapEngine\Rendering\bin\Debug\net6.0\Rendering.dll</HintPath>
-    </Reference>
-    <Reference Include="TheTileMapEngine">
-      <HintPath>..\..\..\TileMapEngine\TileMapEngine\TheTileMapEngine\bin\Debug\net6.0\TheTileMapEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
 
