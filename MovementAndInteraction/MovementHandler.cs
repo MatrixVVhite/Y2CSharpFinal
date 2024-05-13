@@ -10,7 +10,7 @@ namespace MovementAndInteraction
         public TileObject SelectedTileObject { get; set; } //ref
         public TileMap CommandtileMap { get; set; } //ref
         
-        public List<Char> chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']; //used for select
+        public List<Char> chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h','i','j']; //used for select
 
         //Where to move
         public void MoveAction(TileMap newtileMap)
@@ -68,6 +68,7 @@ namespace MovementAndInteraction
                 if (check)
                 {
                     tileMap.TileMapMatrix[destination.X, destination.Y].Color = ConsoleColor.Green;
+                    
                 }
             }
 
@@ -107,6 +108,7 @@ namespace MovementAndInteraction
                     }
                 }
             }
+           
             return true;
         }
         public void ForgetSelected()

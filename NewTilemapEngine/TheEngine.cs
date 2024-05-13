@@ -5,17 +5,20 @@ using MovementAndInteraction;
 using Commands;
 
 
-namespace TileMpaTheEngine
+namespace NewTileMapEngine
 {
     public class TheEngine
     {
         public int InitialSizeX { get; set; } = 10; // default value
         public int InitialSizeY { get; set; } = 10; // default value
 
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
 
         private static TheEngine _instance;
-        private RenderingEngine _renderingEngine;
-        private TileMap _addTiles;
+        public RenderingEngine _renderingEngine { get; private set; }
+        public TileMap _addTiles { get; private set; }
+
+        public List<Player> _players = new List<Player>();
 
         /// <summary>
         /// Template of an headline
@@ -28,7 +31,7 @@ namespace TileMpaTheEngine
             Console.WriteLine("     " + Title + "   ");
             Console.WriteLine("  \\_/ \\_/ \\_/ \\_/ \\_/   ");
         }
-
+        
 
         /// <summary>
         /// singletone
@@ -55,8 +58,28 @@ namespace TileMpaTheEngine
             InitialSizeY = sizeY + 2;
             _renderingEngine = new RenderingEngine(InitialSizeX, InitialSizeY);
             _addTiles = new TileMap(InitialSizeX, InitialSizeY);
+            for (int i = 0; i < HundleTurns.NumberOfPlayers; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    _players.Add(new Player(i + 1, ConsoleColor.Cyan,1,1));
+                }
+                else
+                {
+                    _players.Add(new Player(i + 1, ConsoleColor.Red, 1, -1));
+                }
+            }
+            SetCharList();
         }
-
+        public void SetCharList()       
+        {
+            CommandHandler.MyMovemetHandler.chars = new List<char>();
+            for (int i = 0; i < InitialSizeX; i++)
+            {
+                CommandHandler.MyMovemetHandler.chars.Add(alphabet[i]);
+            }
+        }
+        
         /// <summary>
         /// Set the chess size
         /// </summary>
@@ -104,17 +127,26 @@ namespace TileMpaTheEngine
         {
             char pieces = GetPieces(gameType);
             ConsoleColor pieceConsoleColor = GetPieceColor(pieceColor);
+            
 
-            TileObject to1 = new TileObject(pieces.ToString(), new Position[] { }, new Position(1, 1), pieceConsoleColor);
-            _addTiles.InsertObjectToMap(to1, position);
+            
         }
-
+        public void CreateObjectForFirstPlayer(char pieces, Position pos)
+        {
+            TileObject to1 = new TileObject(pieces.ToString(), new Position[] { new Position(1 * _players[0].MovesToX, 1 * _players[0].MovesToY), new Position(-1 * _players[0].MovesToX, 1 * _players[0].MovesToY) }, pos, _players[0]);
+            _addTiles.InsertObjectToMap(to1, pos);
+        }
+        public void CreateObjectForSecondPlayer(char pieces, Position pos)
+        {
+            TileObject to1 = new TileObject(pieces.ToString(), new Position[] { new Position(1 * _players[1].MovesToX, 1 * _players[1].MovesToY), new Position(-1 * _players[1].MovesToX, 1 * _players[1].MovesToY) }, pos, _players[1]);
+            _addTiles.InsertObjectToMap(to1, pos);
+        }
 
         /// <summary>
         /// Piece template
         /// </summary>
         /// <returns></returns>
-        private char GetPieces(string gameType)
+        public char GetPieces(string gameType)
         {
             switch (gameType.ToLower())
             {
@@ -150,8 +182,8 @@ namespace TileMpaTheEngine
     /// </summary>
     public static class HundleTurns
     {
-        static int NumberOfmovesEachTurn;
-        static int NumberOfPlayers;
+      public static int NumberOfmovesEachTurn;
+      public static int NumberOfPlayers;
 
         static event Action PlayerActions = () => { };
 

@@ -15,7 +15,7 @@ namespace Commands
 
         private static Action<Command> AddNameDescription; //Name and description of the new commands
 
-        private static MovementHandler MyMovemetHandler { get; set; } = new MovementHandler();
+        public static MovementHandler MyMovemetHandler { get; set; } = new MovementHandler();
 
         /// <summary>
         /// This method handles all the commands.
@@ -114,12 +114,14 @@ namespace Commands
                     commandSucc = true;
                     var xy = ReturnPosition();
                     commandList[i].Execute.Invoke(new Position(xy.Item1, xy.Item2), tileMap, renderer);
+                    renderer.UpdateAndRender(tileMap);
                     break;
                 }
                 else if (input.ToLower() == commandList[i].Name.ToLower() && !commandList[i].PosReq)
                 {
                     commandSucc = true;
                     commandList[i].Execute.Invoke(new Position(0,0), tileMap, renderer);
+                    renderer.UpdateAndRender(tileMap);
                     break;
                 }
                 else commandSucc = false;

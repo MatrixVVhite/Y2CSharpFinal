@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreEngineHierarchy", "..\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "..\Demo\Demo.csproj", "{BCD89987-8F56-4650-A777-8AB077EF943E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TileMpaTheEngine", "..\TileMpaTheEngine\TileMpaTheEngine.csproj", "{633587D4-2F93-435E-B126-DCA2DF05C643}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewTilemapEngine", "..\NewTilemapEngine\NewTilemapEngine.csproj", "{E66A383F-19DF-47C1-9AF9-083C5D65CE6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,10 @@ Global
 		{BCD89987-8F56-4650-A777-8AB077EF943E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCD89987-8F56-4650-A777-8AB077EF943E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCD89987-8F56-4650-A777-8AB077EF943E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{633587D4-2F93-435E-B126-DCA2DF05C643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{633587D4-2F93-435E-B126-DCA2DF05C643}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{633587D4-2F93-435E-B126-DCA2DF05C643}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{633587D4-2F93-435E-B126-DCA2DF05C643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E66A383F-19DF-47C1-9AF9-083C5D65CE6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E66A383F-19DF-47C1-9AF9-083C5D65CE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E66A383F-19DF-47C1-9AF9-083C5D65CE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E66A383F-19DF-47C1-9AF9-083C5D65CE6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

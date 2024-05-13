@@ -1,5 +1,6 @@
 ﻿using Positioning;
-using TileMpaTheEngine;
+using NewTileMapEngine;
+using System.Net.Http.Headers;
 
 namespace Demo
 {
@@ -64,26 +65,33 @@ namespace Demo
 
         public void Start_Game()
         {
-            TheEngine.GetInstance().InitializeChessBoard(8, 8);
-
-            for (int i = 0; i < 8; i++)
+            HundleTurns.AddTurns(1, 2);
+            TheEngine.GetInstance().InitializeChessBoard(8,8);
+           
+            for (int i = 1; i < 9; i++)
             {
-                for (int j = 0; j < 2; j++)
+                for (int j = 1; j < 3; j++)
                 {
-                    TheEngine.GetInstance().Template_Checkers("checkers", "black", new Position(i, j));
+                    Position pos = new Position(i, j);
+                    TheEngine.GetInstance().Template_Checkers("checkers", "black", pos);
+                    TheEngine.GetInstance().CreateObjectForFirstPlayer(TheEngine.GetInstance().GetPieces("Checkers"),pos);
                 }
 
-                for (int j = 6; j < 8; j++)
+                for (int j = 7; j < 9; j++)
                 {
-                    TheEngine.GetInstance().Template_Checkers("checkers", "white", new Position(i, j));
+                    Position pos = new Position(i, j);
+                    TheEngine.GetInstance().Template_Checkers("checkers", "white", pos);
+                    TheEngine.GetInstance().CreateObjectForSecondPlayer(TheEngine.GetInstance().GetPieces("Checkers"), pos);
                 }
             }
 
             TheEngine.GetInstance().UpdateBoard();
+            Commands.CommandHandler.HandleCommands();
 
             while (true)
             {
                 _choice_player = Console.ReadLine();
+                Commands.CommandHandler.DiagnoseCommand(_choice_player,TheEngine.GetInstance()._addTiles, TheEngine.GetInstance()._renderingEngine);
             }
         }
     }
