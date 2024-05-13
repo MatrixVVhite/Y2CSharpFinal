@@ -13,4 +13,10 @@
     <ProjectReference Include="..\Rendering\Rendering.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="MovmentAndInteraction">
+      <HintPath>..\..\..\TileMapEngine\TileMapEngine\MovmentAndInteraction\bin\Debug\net6.0\MovmentAndInteraction.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
