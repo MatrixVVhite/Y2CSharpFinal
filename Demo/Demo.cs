@@ -44,29 +44,27 @@ namespace Demo
         {
             OpenScene();
 
-            while (true)
+            if (_choice_player == "1")
             {
-                if (_choice_player == "1")
-                {
-                    Start_Game();
-                }
-
-                else if (_choice_player == "2")
-                {
-                    Environment.Exit(0);
-                }
-
-                else
-                {
-                    Console.WriteLine("There is no optation like this, try again.");
-                    _choice_player = Console.ReadLine();
-                }
+                Start_Game();
             }
+
+            else if (_choice_player == "2")
+            {
+                Environment.Exit(0);
+            }
+
+            else
+            {
+                Console.WriteLine("There is no optation like this, try again.");
+                _choice_player = Console.ReadLine();
+            }
+
         }
 
         public void Start_Game()
         {
-            TileMapEngine.GetInstance().InitializeChessBoard(7, 7);
+            TileMapEngine.GetInstance().InitializeChessBoard(8, 8);
 
             for (int i = 1; i < 7; i++)
             {
@@ -75,10 +73,15 @@ namespace Demo
                     TileMapEngine.GetInstance().Template("checkers", "black", new Position(i, j));
                 }
 
-                for (int j = 6; j < 7; j++)
+                for (int j = 5; j < 7; j++)
                 {
                     TileMapEngine.GetInstance().Template("checkers", "white", new Position(i, j));
                 }
+            }
+
+            while (true)
+            {
+
             }
 
             //TileMapEngine.GetInstance().

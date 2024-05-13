@@ -65,7 +65,7 @@ namespace TheTileMapEngine
         public RenderingEngine InitializeChessBoard(int sizeX, int sizeY)
         {
             Initialize(sizeX, sizeY);
-            _renderingEngine.UpdateAndRender(_addTiles);
+            //_renderingEngine.UpdateAndRender(_addTiles);
 
             return _renderingEngine;
         }
