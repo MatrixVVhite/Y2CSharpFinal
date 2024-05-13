@@ -64,31 +64,16 @@ namespace Demo
 
         public void Start_Game()
         {
-            //TheEngine.GetInstance().InitializeChessBoard(8, 8);
-
-            //for (int i = 1; i < 7; i++)
-            //{
-            //    for (int j = 1; j < 3; j++)
-            //    {
-            //        TheEngine.GetInstance().Template_Checkers("checkers", "black", new Position(i, j));
-            //    }
-
-            //    for (int j = 5; j < 7; j++)
-            //    {
-            //        TheEngine.GetInstance().Template_Checkers("checkers", "white", new Position(i, j));
-            //    }
-            //}
-
             TheEngine.GetInstance().InitializeChessBoard(8, 8);
 
-            for (int i = 1; i < 7; i++)
+            for (int i = 0; i < 8; i++)
             {
-                for (int j = 1; j < 3; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     TheEngine.GetInstance().Template_Checkers("checkers", "black", new Position(i, j));
                 }
 
-                for (int j = 5; j < 7; j++)
+                for (int j = 6; j < 8; j++)
                 {
                     TheEngine.GetInstance().Template_Checkers("checkers", "white", new Position(i, j));
                 }
