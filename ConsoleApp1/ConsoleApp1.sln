@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rendering", "..\Rendering\R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheTileMapEngine", "..\TheTileMapEngine\TheTileMapEngine.csproj", "{5A4C55D1-95B5-4FE9-B8FF-4B0CF9C715A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreEngineHierarchy", "..\CoreEngineHierarchy\CoreEngineHierarchy.csproj", "{E3F24534-A10F-4806-9B83-71EA3B5B434C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreEngineHierarchy", "..\CoreEngineHierarchy\CoreEngineHierarchy.csproj", "{E3F24534-A10F-4806-9B83-71EA3B5B434C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
