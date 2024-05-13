@@ -126,7 +126,7 @@ namespace Commands
             if(SelectedTileObject != null)
             {
                 
-                Position currentPos = new Position(SelectedTileObject.CurrentPos.X, SelectedTileObject.CurrentPos.Y);
+                Position currentPos = new (SelectedTileObject.CurrentPos.X, SelectedTileObject.CurrentPos.Y);
                 foreach (Position item in SelectedTileObject.Positions)
                 {
                     var check = CommandtileMap.TileMapMatrix[destinedLocation.X, destinedLocation.Y].Pass(currentPos, destinedLocation, CommandtileMap);
