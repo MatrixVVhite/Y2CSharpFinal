@@ -2,6 +2,7 @@
 using CoreEngineHierarchy;
 using Positioning;
 using MovmentAndInteraction;
+using Commands;
 
 namespace TileMpaTheEngine
 {
@@ -76,6 +77,15 @@ namespace TileMpaTheEngine
             _renderingEngine.UpdateAndRender(_addTiles);
         }
 
+        /// <summary>
+        /// Create commands
+        /// </summary>
+        /// <returns></returns>
+        public void CreateCommand()
+        {
+            //CommandHandler.HandleCommands()
+        }
+
 
         /// <summary>
         /// Allow the consumer an order to move the player
@@ -83,7 +93,6 @@ namespace TileMpaTheEngine
         /// <returns></returns>
         public void MoveTo(Position position)
         {
-            MovementAndInteraction movementAndInteraction = new MovementAndInteraction();
         }
 
         /// <summary>

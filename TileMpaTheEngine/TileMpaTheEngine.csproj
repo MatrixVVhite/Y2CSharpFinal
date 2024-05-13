@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="Commands">
+      <HintPath>..\..\..\TileMapEngine\TileMapEngine\Commands\bin\Debug\net6.0\Commands.dll</HintPath>
+    </Reference>
     <Reference Include="CoreEngineHierarchy">
       <HintPath>..\..\..\TileMapEngine\TileMapEngine\TheTileMapEngine\bin\Debug\net6.0\CoreEngineHierarchy.dll</HintPath>
     </Reference>
