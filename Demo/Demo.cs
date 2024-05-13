@@ -83,6 +83,7 @@ namespace Demo
 
             while (true)
             {
+                _choice_player = Console.ReadLine();
             }
         }
     }
