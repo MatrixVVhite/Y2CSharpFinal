@@ -13,17 +13,12 @@ namespace MovementAndInteraction
         public List<Char> chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']; //used for select
 
         //Where to move
-        public void MovrAction(TileMap newtileMap)
+        public void MoveAction(TileMap newtileMap)
         {
             RenderingEngine renderingEngine = new RenderingEngine(0, 0);
             newtileMap.MoveTileObject(SelectedTileObject, new Position(1, 1));
             //renderingEngine.ReplaceMap(newtileMap);
             //renderingEngine.DisplayAllTiles();
-        }
-
-        public void ReadyToMove()
-        {
-
         }
 
         public bool TryMoveCommand(Position destinedLocation, TileMap tileMap, RenderingEngine renderer)
