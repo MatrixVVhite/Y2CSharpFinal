@@ -2,9 +2,6 @@
 using CoreEngineHierarchy;
 using Positioning;
 using MovmentAndInteraction;
-using System.Numerics;
-using System.Security.AccessControl;
-using System.Text;
 
 namespace TheTileMapEngine
 {
