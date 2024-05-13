@@ -34,19 +34,25 @@ namespace Commands
             AddCommandNameAndDescription(HelpCommand);
         }
 
-        //Use this method to add your command to the command list
+        /// <summary>
+        /// This adds the commands to the help list. Invoked by AddCommandNameAndDescription
+        /// </summary>
+        private static void AddToHelpList(Command command)
+        {
+            commandList.Add(command);
+        }
+
+        /// <summary>
+        /// Use this method to add your command to the command list
+        /// </summary>
         private static void  AddCommandNameAndDescription(Command newCommand)
         {
             AddNameDescription.Invoke(newCommand);
         }
+
         /// <summary>
-        /// This adds the commands to the help list. Invoked by AddCommandNameAndDescription
+        /// Shows all the commands that have been added in AddCommandNameAndDescription
         /// </summary>
-        /// <param name="command"></param>
-        private static  void  AddToHelpList(Command command)
-        {
-            commandList.Add(command);
-        }
         private static bool Help(Position position, TileMap tileMap, RenderingEngine renderer)
         {
             int index = 1;
@@ -65,7 +71,9 @@ namespace Commands
 
 
        
-
+        /// <summary>
+        /// Checks if the input was correct
+        /// </summary>
         private static (int, int) ReturnPosition()
         {
             
@@ -92,6 +100,9 @@ namespace Commands
             return (0, 0);
         }
 
+        /// <summary>
+        /// Handles all the input from the user
+        /// </summary>
         public static void DiagnoseCommand(string input, TileMap tileMap, Rendering.RenderingEngine renderer)
         {
             bool commandSucc=false ;
