@@ -20,7 +20,6 @@ namespace TheTileMapEngine
 
                 for (int j = 6; j < 8; j++)
                 {
-
                     TileMapEngine.GetInstance().Template_Checkers("checkers", "White", new Position(i, j));
                 }
             }

@@ -1,4 +1,5 @@
-﻿using TheTileMapEngine;
+﻿using Positioning;
+using TheTileMapEngine;
 
 namespace Demo
 {
@@ -65,23 +66,22 @@ namespace Demo
 
         public void Start_Game()
         {
-            //TileMapEngine.GetInstance().InitializeChessBoard(7, 7);
+            TileMapEngine.GetInstance().InitializeChessBoard(7, 7);
 
-            //for (int i = 1; i < 8; i++)
-            //{
-            //    for (int j = 0; j < 3; j++)
-            //    {
-            //        TileMapEngine.GetInstance().Template_Checkers("checkers", "black", new Position(i, j));
-            //    }
+            for (int i = 1; i < 7; i++)
+            {
+                for (int j = 1; j < 3; j++)
+                {
+                    TileMapEngine.GetInstance().Template("checkers", "black", new Position(i, j));
+                }
 
-            //    for (int j = 6; j < 8; j++)
-            //    {
+                for (int j = 6; j < 7; j++)
+                {
+                    TileMapEngine.GetInstance().Template("checkers", "white", new Position(i, j));
+                }
+            }
 
-            //        TileMapEngine.GetInstance().Template_Checkers("checkers", "White", new Position(i, j));
-            //    }
-            //}
-
-            //TileMapEngine.GetInstance().UpdateBoard();
+            //TileMapEngine.GetInstance().
         }
     }
 }

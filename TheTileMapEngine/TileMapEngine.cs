@@ -80,11 +80,15 @@ namespace TheTileMapEngine
             _renderingEngine.UpdateAndRender(_addTiles);
         }
 
+
         /// <summary>
         /// Allow the consumer an order to move the player
         /// </summary>
         /// <returns></returns>
-
+        public void MoveTo(Position position)
+        {
+            MovementAndInteraction movementAndInteraction = new MovementAndInteraction();
+        }
 
         /// <summary>
         /// Template of checkers that the player could use if want to or put any other string
