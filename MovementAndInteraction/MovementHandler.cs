@@ -1,6 +1,7 @@
 ﻿using CoreEngineHierarchy;
 using Positioning;
 using Rendering;
+using NewTileMapEngine; 
 
 
 namespace MovementAndInteraction
@@ -43,6 +44,14 @@ namespace MovementAndInteraction
                         CommandtileMap.MoveTileObject(SelectedTileObject, destinedLocation);
                         Console.WriteLine(SelectedTileObject.Positions[0].X + SelectedTileObject.CurrentPos.X + ", " + SelectedTileObject.Positions[0].Y + SelectedTileObject.CurrentPos.Y);
                         ForgetSelected();
+                        if (HundleTurns.CurrentPlayer < HundleTurns.NumberOfPlayers)
+                        {
+                            HundleTurns.CurrentPlayer++;
+                        }
+                        else
+                        {
+                            HundleTurns.CurrentPlayer = 1;
+                        }
                         return true;
                     }
                     else
@@ -59,22 +68,32 @@ namespace MovementAndInteraction
             CommandtileMap = tileMap;
             Console.WriteLine("Selected Position " + position.X + " , " + position.Y);
             var selectedobject = tileMap.TileMapMatrix[position.X, position.Y].CurrentTileObject;
-            Console.WriteLine("Selected Tile Object " + selectedobject.TileObjectChar);
-            foreach (var item in selectedobject.Positions)
+            if (selectedobject.Owner.PlayerID == HundleTurns.CurrentPlayer)
             {
-                Position destination = new(position.X + item.X, position.Y + item.Y);
-                var check = tileMap.TileMapMatrix[destination.X, destination.Y].Pass(position, destination, tileMap);
-
-                if (check)
+                Console.WriteLine("Selected Tile Object " + selectedobject.TileObjectChar);
+                foreach (var item in selectedobject.Positions)
                 {
-                    tileMap.TileMapMatrix[destination.X, destination.Y].Color = ConsoleColor.Green;
-                    
+                    Position destination = new(position.X + item.X, position.Y + item.Y);
+                    var check = tileMap.TileMapMatrix[destination.X, destination.Y].Pass(position, destination, tileMap);
+
+                    if (check)
+                    {
+                        tileMap.TileMapMatrix[destination.X, destination.Y].Color = ConsoleColor.Green;
+
+                    }
                 }
+
+                SelectedTileObject = tileMap.TileMapMatrix[position.X, position.Y].CurrentTileObject;
+                
+
+                return true;
             }
-
-            SelectedTileObject = tileMap.TileMapMatrix[position.X, position.Y].CurrentTileObject;
-
-            return true;
+            else
+            {
+                Console.WriteLine( "Wait! its not your turn");
+                Console.ReadKey();
+            } 
+            return false;
         }
         public bool DeSelect(Position position, TileMap tileMap, RenderingEngine renderer)
         {

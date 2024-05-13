@@ -54,6 +54,7 @@ namespace NewTileMapEngine
         /// <returns></returns>
         public void Initialize(int sizeX, int sizeY)
         {
+            HundleTurns.CurrentPlayer = 1;
             InitialSizeX = sizeX + 2;
             InitialSizeY = sizeY + 2;
             _renderingEngine = new RenderingEngine(InitialSizeX, InitialSizeY);
@@ -186,6 +187,7 @@ namespace NewTileMapEngine
     {
       public static int NumberOfmovesEachTurn;
       public static int NumberOfPlayers;
+      public static int CurrentPlayer;
 
         static event Action PlayerActions = () => { };
 

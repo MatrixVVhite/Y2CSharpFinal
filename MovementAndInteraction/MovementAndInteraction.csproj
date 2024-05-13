@@ -15,6 +15,9 @@
     <Reference Include="Commands">
       <HintPath>..\..\..\TileMapEngine\TileMapEngine\Commands\bin\Debug\net6.0\Commands.dll</HintPath>
     </Reference>
+    <Reference Include="NewTilemapEngine">
+      <HintPath>..\NewTilemapEngine\bin\Debug\net8.0\NewTilemapEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

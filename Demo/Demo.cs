@@ -60,28 +60,35 @@ namespace Demo
                 Console.WriteLine("There is no optation like this, try again.");
                 _choice_player = Console.ReadLine();
             }
-
+            
         }
+        
 
         public void Start_Game()
         {
             HundleTurns.AddTurns(1, 2);
-            TheEngine.GetInstance().InitializeChessBoard(9,9);
+            TheEngine.GetInstance().InitializeChessBoard(8,8);
            
-            for (int i = 1; i < 9; i++)
+            for (int i = 1; i < TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0)-1; i++)
             {
-                for (int j = 1; j < 3; j++)
+                for (int j = 1; j < 4; j++)
                 {
-                    Position pos = new Position(i, j);
-                    TheEngine.GetInstance().Template_Checkers("checkers", "black", pos);
-                    TheEngine.GetInstance().CreateObjectForFirstPlayer(TheEngine.GetInstance().GetPieces("Checkers"),pos);
+                    if ((i % 2 == 0 && j % 2 == 1)|| (i % 2 == 1 && j % 2 == 0))
+                    {
+                        Position pos = new Position(i, j);
+                        TheEngine.GetInstance().Template_Checkers("checkers", "black", pos);
+                        TheEngine.GetInstance().CreateObjectForFirstPlayer(TheEngine.GetInstance().GetPieces("Checkers"), pos);
+                    }
                 }
 
-                for (int j = 7; j < 9; j++)
+                for (int j = TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1)-4; j < TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1)-1; j++)
                 {
-                    Position pos = new Position(i, j);
-                    TheEngine.GetInstance().Template_Checkers("checkers", "white", pos);
-                    TheEngine.GetInstance().CreateObjectForSecondPlayer(TheEngine.GetInstance().GetPieces("Checkers"), pos);
+                    if ((i % 2 == 0 && j % 2 == 1) || (i % 2 == 1 && j % 2 == 0))
+                    {
+                        Position pos = new Position(i, j);
+                        TheEngine.GetInstance().Template_Checkers("checkers", "white", pos);
+                        TheEngine.GetInstance().CreateObjectForSecondPlayer(TheEngine.GetInstance().GetPieces("Checkers"), pos);
+                    }
                 }
             }
 
