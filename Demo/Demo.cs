@@ -277,12 +277,12 @@ namespace Demo
         {
             if (threatenedTile.CurrentPos.X < hungryTile.CurrentPos.X)
             {
-                if (TheEngine.GetInstance()._addTiles.TileMapMatrix[threatenedTile.CurrentPos.X-1, threatenedTile.CurrentPos.Y -1 ].CurrentTileObject.TileObjectChar == " ")
+                if (TheEngine.GetInstance()._addTiles.TileMapMatrix[threatenedTile.CurrentPos.X-1, threatenedTile.CurrentPos.Y + hungryTile.Owner.MovesToY].CurrentTileObject.TileObjectChar == " ")
                     return true;
             }
-            if (threatenedTile.CurrentPos.X > hungryTile.CurrentPos.X)
+            else if (threatenedTile.CurrentPos.X > hungryTile.CurrentPos.X)
             {
-                if (TheEngine.GetInstance()._addTiles.TileMapMatrix[threatenedTile.CurrentPos.X + 1, threatenedTile.CurrentPos.Y - 1].CurrentTileObject.TileObjectChar == " ")
+                if (TheEngine.GetInstance()._addTiles.TileMapMatrix[threatenedTile.CurrentPos.X + 1, threatenedTile.CurrentPos.Y + hungryTile.Owner.MovesToY].CurrentTileObject.TileObjectChar == " ")
                     return true;
             }
             return false;
