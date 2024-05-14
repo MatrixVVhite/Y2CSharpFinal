@@ -36,6 +36,11 @@ namespace MovementAndInteraction
                 {
                     Console.WriteLine("Selected Tile Object " + selectedobject.TileObjectChar);
                     SelectedTileObject = selectedobject;
+                    List<Position> PlacesToEat = new List<Position>();
+                    foreach(var pos in selectedobject.Positions)
+                    {
+                        PlacesToEat.Add(new Position(0,0));
+                    }
                     foreach (var item in selectedobject.Positions)
                     {
                         Position destination = new(position.X + item.X, position.Y + item.Y);
@@ -53,14 +58,19 @@ namespace MovementAndInteraction
 
                                 if (destination.X < SelectedTileObject.CurrentPos.X)
                                 {
-                                    SelectedTileObject.Positions.Add( tileMap.TileMapMatrix[destination.X - 1, destination.Y + 1].CurrentTileObject.CurrentPos);
-                                    SelectedTileObject.Positions.Remove(item);
+                                    var eatingPos = PlacesToEat.ElementAt(selectedobject.Positions.IndexOf(item));
+                                    eatingPos = ( tileMap.TileMapMatrix[destination.X + 1, destination.Y + 1].CurrentTileObject.CurrentPos);
+
+                                    PlacesToEat.Insert(selectedobject.Positions.IndexOf(item), eatingPos);
+                                    
                                     tileMap.TileMapMatrix[destination.X - 1, destination.Y + 1].Color = ConsoleColor.Green;
                                 }
                                 if (destination.X > SelectedTileObject.CurrentPos.X)
                                 {
-                                    SelectedTileObject.Positions.Add(tileMap.TileMapMatrix[destination.X - 1, destination.Y + 1].CurrentTileObject.CurrentPos);
-                                    SelectedTileObject.Positions.Remove(item);
+                                    var eatingPos = PlacesToEat.ElementAt(selectedobject.Positions.IndexOf(item));
+                                    eatingPos = (tileMap.TileMapMatrix[destination.X - 1, destination.Y + 1].CurrentTileObject.CurrentPos);
+
+                                    PlacesToEat.Insert(selectedobject.Positions.IndexOf(item), eatingPos);
                                     tileMap.TileMapMatrix[destination.X + 1, destination.Y + 1].Color = ConsoleColor.Green;
                                 }
                                 continue;
@@ -68,7 +78,16 @@ namespace MovementAndInteraction
                             tileMap.TileMapMatrix[destination.X, destination.Y].Color = ConsoleColor.Green;
 
                         }
+                       
                     }
+                    //foreach (var pos in PlacesToEat)
+                    //{
+                    //    if (pos.X != 0 && pos.Y != 0)
+                    //    {
+                    //        SelectedTileObject.Positions.RemoveAt(PlacesToEat.IndexOf(pos));
+                    //        SelectedTileObject.Positions.Add(pos);
+                    //    }
+                    //}
 
 
 
@@ -101,20 +120,32 @@ namespace MovementAndInteraction
                     if (item.X + currentPos.X == destinedLocation.X && item.Y + currentPos.Y == destinedLocation.Y)
                     {
 
-                        DeSelect(destinedLocation, tileMap, renderer);
-                        CommandtileMap.MoveTileObject(SelectedTileObject, destinedLocation);
-                        Console.WriteLine(SelectedTileObject.Positions[0].X + SelectedTileObject.CurrentPos.X + ", " + SelectedTileObject.Positions[0].Y + SelectedTileObject.CurrentPos.Y);
-                        
-                        if (HundleTurns.CurrentPlayer < HundleTurns.NumberOfPlayers)
+                        if (CanEat.Invoke(SelectedTileObject, tileMap.TileMapMatrix[destinedLocation.X, destinedLocation.Y].CurrentTileObject))
                         {
-                            HundleTurns.CurrentPlayer++;
+
+                          //  DeSelect(destinedLocation, tileMap, renderer);
+                            CommandtileMap.MoveTileObject(SelectedTileObject, destinedLocation);
+                            TryMoveCommand(new Position(destinedLocation.X+1, destinedLocation.Y+1), tileMap, renderer);
                         }
+
+
                         else
                         {
-                            HundleTurns.CurrentPlayer = 1;
+                            DeSelect(destinedLocation, tileMap, renderer);
+                            CommandtileMap.MoveTileObject(SelectedTileObject, destinedLocation);
+                            Console.WriteLine(SelectedTileObject.Positions[0].X + SelectedTileObject.CurrentPos.X + ", " + SelectedTileObject.Positions[0].Y + SelectedTileObject.CurrentPos.Y);
+
+                            if (HundleTurns.CurrentPlayer < HundleTurns.NumberOfPlayers)
+                            {
+                                HundleTurns.CurrentPlayer++;
+                            }
+                            else
+                            {
+                                HundleTurns.CurrentPlayer = 1;
+                            }
+                            SelectedTileObject.Positions = SelectedTileObject.tempList;
+                            ForgetSelected();
                         }
-                        SelectedTileObject.Positions = SelectedTileObject.tempList;
-                        ForgetSelected();
                         return true;
                     }
                     else
@@ -132,6 +163,23 @@ namespace MovementAndInteraction
             foreach (var item in SelectedTileObject.Positions)
             {
                 Position deleteAt = new Position(currentPos.X + item.X, currentPos.Y + item.Y);
+                if(deleteAt.X > tileMap.TileMapMatrix.GetLength(0)-1)
+                {
+                    deleteAt = new Position( tileMap.TileMapMatrix.GetLength(0) - 1,deleteAt.Y);
+                }
+                if (deleteAt.X < 1)
+                {
+                    deleteAt = new Position(1, deleteAt.Y);
+                }
+                if (deleteAt.Y > tileMap.TileMapMatrix.GetLength(1) - 1)
+                {
+                    deleteAt = new Position(deleteAt.X, tileMap.TileMapMatrix.GetLength(1) - 1);
+                }
+                if (deleteAt.Y < 1)
+                {
+                    deleteAt = new Position(deleteAt.X , 1);
+                }
+
                 if (deleteAt.X % 2 == 0 && deleteAt.Y % 2 == 0)
                 {
                     var check = CommandtileMap.TileMapMatrix[deleteAt.X, deleteAt.Y].Pass(currentPos, deleteAt, CommandtileMap);
