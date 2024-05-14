@@ -3,6 +3,7 @@ using CoreEngineHierarchy;
 using Positioning;
 using MovementAndInteraction;
 using Commands;
+using System.Reflection.Metadata.Ecma335;
 
 
 namespace NewTileMapEngine
@@ -134,15 +135,17 @@ namespace NewTileMapEngine
 
             
         }
-        public void CreateObjectForFirstPlayer(char pieces, Position pos)
+        public TileObject CreateObjectForFirstPlayer(char pieces, Position pos)
         {
             TileObject to1 = new TileObject(pieces.ToString(), new List<Position> { new Position(1 * _players[0].MovesToX, 1 * _players[0].MovesToY), new Position(-1 * _players[0].MovesToX, 1 * _players[0].MovesToY) }, pos, _players[0]);
             _addTiles.InsertObjectToMap(to1, pos);
+            return to1;
         }
-        public void CreateObjectForSecondPlayer(char pieces, Position pos)
+        public TileObject CreateObjectForSecondPlayer(char pieces, Position pos)
         {
             TileObject to1 = new TileObject(pieces.ToString(), new List<Position> { new Position(1 * _players[1].MovesToX, 1 * _players[1].MovesToY), new Position(-1 * _players[1].MovesToX, 1 * _players[1].MovesToY) }, pos, _players[1]);
             _addTiles.InsertObjectToMap(to1, pos);
+            return to1;
         }
 
         /// <summary>

@@ -42,10 +42,6 @@ namespace MovementAndInteraction
                                 tileMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject.Owner.PlayerID != selectedobject.Owner.PlayerID &&
                                 CanEat.Invoke(SelectedTileObject, tileMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject))
                             {
-                                
-                               
-
-
                                 if (destination.X < SelectedTileObject.CurrentPos.X)
                                 {
                                     tileMap.TileMapMatrix[destination.X - 1, destination.Y + SelectedTileObject.Owner.MovesToY].Color = ConsoleColor.Green;
@@ -57,7 +53,6 @@ namespace MovementAndInteraction
                                 continue;
                             }
                             tileMap.TileMapMatrix[destination.X, destination.Y].Color = ConsoleColor.Green;
-
                         }
                        
                     }
@@ -75,7 +70,6 @@ namespace MovementAndInteraction
         {
             if (SelectedTileObject != null)
             {
-                
                 Position currentPos = new Position(SelectedTileObject.CurrentPos.X, SelectedTileObject.CurrentPos.Y);
                 foreach (Position item in SelectedTileObject.Positions)
                 {
@@ -158,6 +152,18 @@ namespace MovementAndInteraction
 
                                     if (HundleTurns.CurrentPlayer < HundleTurns.NumberOfPlayers)
                                     {
+                                        if (TheEngine.GetInstance()._players[0].PiecesOwned.Count == 0)
+                                        {
+                                            Console.WriteLine("Player 2 wins");
+                                            Console.ReadKey();
+                                            Environment.Exit(0);
+                                        }
+                                        else if (TheEngine.GetInstance()._players[1].PiecesOwned.Count == 0)
+                                        {
+                                            Console.WriteLine("Player 1 wins");
+                                            Console.ReadKey();
+                                            Environment.Exit(0);
+                                        }
                                         HundleTurns.CurrentPlayer++;
                                     }
                                     else
@@ -177,6 +183,7 @@ namespace MovementAndInteraction
                             }
 
                         }
+                        
                         renderer.UpdateAndRender(tileMap);
                         return true;
                     }

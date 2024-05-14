@@ -9,11 +9,10 @@ namespace CoreEngineHierarchy
         /// </summary>
         public string TileObjectChar { get; set; }
         public List<Position> Positions { get; set; }
-
-        //public List<Position> tempList { get; set; }
         public Position CurrentPos { get; set; }
         public Player Owner { get; set; }
         public ConsoleColor Color { get; set; }
+        public bool IsQueen { get; set; } = false;
 
         /// <summary>
         /// Dictionary with the possibale positions on the board
@@ -36,7 +35,6 @@ namespace CoreEngineHierarchy
             }
 
             CurrentPos = startingPos;
-            //tempList = Positions;
         }
 
         /// <summary>

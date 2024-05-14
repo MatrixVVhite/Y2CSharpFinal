@@ -20,152 +20,39 @@ namespace Demo
         }
         public TileObject MakeQueen(TileObject toPromote)
         {
-            TileObject queen = new TileObject("A",new List<Position>(),toPromote.CurrentPos,toPromote.Owner);
+            TileObject queen = new TileObject("Q",new List<Position>(),toPromote.CurrentPos,toPromote.Owner);
             queen.Positions.Clear();
-            var mapBounds = TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1) - 7;
+            var mapBounds = TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1) - 1;
             int counter = 1;
-                for (int j = 1; j < mapBounds; j++)
+            for (int i = 0; i < TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1); j++)
                 {
-
-               queen.Positions.Add( new Position(( -counter) * toPromote.Owner.MovesToX,   (+ j) * toPromote.Owner.MovesToY)); //upper left
-                queen.Positions.Add(new Position(( + counter) * toPromote.Owner.MovesToX,  (+ j) * toPromote.Owner.MovesToY));//upper right
-                queen.Positions.Add(new Position(( +  counter) * toPromote.Owner.MovesToX, (- j) * toPromote.Owner.MovesToY));//down right
-                queen.Positions.Add(new Position(( -  counter) * toPromote.Owner.MovesToX, (- j) * toPromote.Owner.MovesToY));// down left
-                counter++;
-
-
-                //var queenPosUpperLeft = new Position((queen.CurrentPos.X - counter) * queen.Owner.MovesToX, (queen.CurrentPos.Y + j ) * queen.Owner.MovesToY);
-                //if(queenPosUpperLeft.X > TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0))
-                //{
-                //    queenPosUpperLeft = new Position( TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0) - 1,queenPosUpperLeft.Y);
-
-                //queen.Positions.Add(queenPosUpperLeft);
-                //counter++;
-                //continue;
-                //}
-                //if (queenPosUpperLeft.X < 1)
-                //{
-                //    queenPosUpperLeft = new Position(1, queenPosUpperLeft.Y);
-                //counter++;
-                //queen.Positions.Add(queenPosUpperLeft);
-                //continue;
-                //}
-                //if (queenPosUpperLeft.Y > TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1))
-                //{
-                //    queenPosUpperLeft = new Position(queenPosUpperLeft.X , TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1) - 1);
-                //queen.Positions.Add(queenPosUpperLeft);
-                //counter++;
-                //continue;
-                //}
-                //if (queenPosUpperLeft.Y < 1)
-                //{
-                //    queenPosUpperLeft = new Position(queenPosUpperLeft.X, 1);
-                //queen.Positions.Add(queenPosUpperLeft);
-                //counter++;
-                //continue;
-                //}
-
-
-
-
-                //var queenUpperRight = new Position((queen.CurrentPos.X + counter ) * queen.Owner.MovesToX, (queen.CurrentPos.Y + j ) * queen.Owner.MovesToY);
-                //if (queenUpperRight.X > TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0))
-                //{
-                //    queenUpperRight = new Position(TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0) - 1, queenPosUpperLeft.Y);
-                //queen.Positions.Add(queenUpperRight);
-                //counter++;
-                //continue;
-                //}
-                //if (queenUpperRight.X < 1)
-                //{
-                //    queenUpperRight = new Position(1, queenUpperRight.Y);
-                //queen.Positions.Add(queenUpperRight);
-                //counter++;
-                //continue;
-                // }
-                //if (queenUpperRight.Y > TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1))
-                //{
-                //    queenUpperRight = new Position(queenUpperRight.X, TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1) - 1);
-                //queen.Positions.Add(queenUpperRight);
-                //counter++;
-                //continue;
-                //}
-                //if (queenUpperRight.Y <1)
-                //{
-                //    queenUpperRight = new Position(queenUpperRight.X, 1);
-                //queen.Positions.Add(queenUpperRight);
-                //counter++;
-                //continue;
-                // }
-
-
-
-
-                //var queenLowerLeft = new Position((queen.CurrentPos.X - counter ) * queen.Owner.MovesToX, (queen.CurrentPos.Y -j) * queen.Owner.MovesToY);
-                //if (queenLowerLeft.X > TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0))
-                //{
-                //    queenLowerLeft = new Position(TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0) - 1, queenLowerLeft.Y);
-                //queen.Positions.Add(queenLowerLeft);
-                //counter++;
-                //continue;
-                //}
-                //if (queenLowerLeft.X < 1)
-                //{
-                //    queenLowerLeft = new Position(1, queenLowerLeft.Y);
-                //queen.Positions.Add(queenLowerLeft);
-                //counter++;
-                //continue;
-                //}
-                //if (queenLowerLeft.Y > TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1))
-                //{
-                //    queenLowerLeft = new Position(queenLowerLeft.X, TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1) - 1);
-                //queen.Positions.Add(queenLowerLeft);
-                //counter++;
-                //continue;
-                //}
-                //if (queenLowerLeft.Y < 1)
-                //{
-                //    queenLowerLeft = new Position(queenLowerLeft.X, 1);
-                //queen.Positions.Add(queenLowerLeft);
-                //counter++;
-                //continue;
-                //}
-
-
-
-                //var queenLowerRight = new Position((queen.CurrentPos.X + counter ) * queen.Owner.MovesToX, (queen.CurrentPos.Y -j) * queen.Owner.MovesToY);
-                //if (queenLowerRight.X > TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0))
-                //{
-                //    queenLowerRight = new Position(TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0) - 1, queenLowerRight.Y);
-                //queen.Positions.Add(queenLowerRight);
-                //counter++;
-                //continue;
-                //}
-                //if (queenLowerRight.X < 1)
-                //{
-                //    queenLowerRight = new Position(1, queenLowerRight.Y);
-                //queen.Positions.Add(queenLowerRight);
-                //counter++;
-                //continue;
-                //}
-                //if (queenLowerRight.Y > 1)
-                //{
-                //    queenLowerRight = new Position(queenLowerRight.X, TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1) - 1);
-                //queen.Positions.Add(queenLowerRight);
-                //counter++;
-                //continue;
-                //}
-                //if (queenLowerRight.Y < TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1))
-                //{
-                //    queenLowerRight = new Position(queenLowerRight.X, 1);
-                //queen.Positions.Add(queenLowerRight);
-                //counter++;
-                //continue;
-                //}
-
-
+                    if (TheEngine.GetInstance()._addTiles.TileMapMatrix[i,j].TilePos.X < TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0) - 1 &&
+                    TheEngine.GetInstance()._addTiles.TileMapMatrix[i, j].TilePos.Y < TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1) - 1 &&
+                    TheEngine.GetInstance()._addTiles.TileMapMatrix[i, j].TilePos.X > 0 && TheEngine.GetInstance()._addTiles.TileMapMatrix[i, j].TilePos.Y > 0)
+                    {
+                        if (toPromote.CurrentPos.X - toPromote.CurrentPos.Y == i - j || toPromote.CurrentPos.X + toPromote.CurrentPos.Y == i + j)
+                        {
+                            queen.Positions.Add(new Position(i - toPromote.CurrentPos.X, j - toPromote.CurrentPos.Y));
+                        }
+                        //queen.Positions.Add(new Position((-i) * toPromote.Owner.MovesToX, (+j) * toPromote.Owner.MovesToY)); //upper left
+                        //queen.Positions.Add(new Position((+i) * toPromote.Owner.MovesToX, (+j) * toPromote.Owner.MovesToY));//upper right
+                        //queen.Positions.Add(new Position((+i) * toPromote.Owner.MovesToX, (-j) * toPromote.Owner.MovesToY));//down right
+                        //queen.Positions.Add(new Position((-i) * toPromote.Owner.MovesToX, (-j) * toPromote.Owner.MovesToY));// down left
+                    }
+                }
             }
-            
+            //for (int j = 1; j < mapBounds; j++)
+            //{
+                
+            //    queen.Positions.Add( new Position(( -counter) * toPromote.Owner.MovesToX,   (+ j) * toPromote.Owner.MovesToY)); //upper left
+            //    queen.Positions.Add(new Position(( + counter) * toPromote.Owner.MovesToX,  (+ j) * toPromote.Owner.MovesToY));//upper right
+            //    queen.Positions.Add(new Position(( +  counter) * toPromote.Owner.MovesToX, (- j) * toPromote.Owner.MovesToY));//down right
+            //    queen.Positions.Add(new Position(( -  counter) * toPromote.Owner.MovesToX, (- j) * toPromote.Owner.MovesToY));// down left
+            //    counter++;
+            //}
+            queen.IsQueen = true;
             return queen;
         }
        
@@ -225,6 +112,9 @@ namespace Demo
             CommandHandler.MyMovemetHandler.CanEat = CheckersEatingCheck;
             HundleTurns.AddTurns(1, 2);
 
+            List<TileObject> list1 = new List<TileObject>();
+            List<TileObject> list2 = new List<TileObject>();
+
             for (int i = 1; i < TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0)-1; i++)
             {
                 for (int j = 1; j < 4; j++)
@@ -234,7 +124,7 @@ namespace Demo
                         Position pos = new Position(i, j);
                        
                         TheEngine.GetInstance().Template_Checkers("checkers", "black", pos);
-                        TheEngine.GetInstance().CreateObjectForFirstPlayer(TheEngine.GetInstance().GetPieces("Checkers"), pos);
+                        list1.Add(TheEngine.GetInstance().CreateObjectForFirstPlayer(TheEngine.GetInstance().GetPieces("Checkers"), pos));
                     }
                 }
 
@@ -245,17 +135,17 @@ namespace Demo
                         Position pos = new Position(i, j);
                         
                         TheEngine.GetInstance().Template_Checkers("checkers", "white", pos);
-                        TheEngine.GetInstance().CreateObjectForSecondPlayer(TheEngine.GetInstance().GetPieces("Checkers"), pos);
-                        
+                        list2.Add(TheEngine.GetInstance().CreateObjectForSecondPlayer(TheEngine.GetInstance().GetPieces("Checkers"), pos));
                     }
                 }
             }
 
+            TheEngine.GetInstance()._players[0].AddPieces(list1);
+            TheEngine.GetInstance()._players[1].AddPieces(list2);
 
-
-        //var myQueen =    MakeQueen(TheEngine.GetInstance()._addTiles.TileMapMatrix[2, 3].CurrentTileObject);
-        //    TheEngine.GetInstance()._addTiles.DeleteTileObjectAtPos(new Position(2,3));
-        //    TheEngine.GetInstance()._addTiles.InsertObjectToMap(myQueen, TheEngine.GetInstance()._addTiles.TileMapMatrix[2, 3].CurrentTileObject.CurrentPos);
+            //var myQueen =    MakeQueen(TheEngine.GetInstance()._addTiles.TileMapMatrix[2, 3].CurrentTileObject);
+            //TheEngine.GetInstance()._addTiles.DeleteTileObjectAtPos(new Position(2,3));
+            //TheEngine.GetInstance()._addTiles.InsertObjectToMap(myQueen, TheEngine.GetInstance()._addTiles.TileMapMatrix[2, 3].CurrentTileObject.CurrentPos);
 
             TheEngine.GetInstance().UpdateBoard();
             Commands.CommandHandler.HandleCommands();
