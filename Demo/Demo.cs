@@ -1,6 +1,8 @@
 ﻿using Positioning;
 using NewTileMapEngine;
 using System.Net.Http.Headers;
+using CoreEngineHierarchy;
+using Commands;
 
 namespace Demo
 {
@@ -66,9 +68,12 @@ namespace Demo
 
         public void Start_Game()
         {
+           //HundleTurns.setNumberOfPlayers(2);
+            HundleTurns.CurrentPlayer = 1;
+            TheEngine.GetInstance()._players = new List<Player>() { new Player(1,ConsoleColor.Red,1,1), new Player(2, ConsoleColor.Blue, 1, -1) };
+            CommandHandler.MyMovemetHandler.CanEat = CheckersEatingCheck;
             HundleTurns.AddTurns(1, 2);
-            TheEngine.GetInstance().InitializeChessBoard(8,8);
-           
+
             for (int i = 1; i < TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0)-1; i++)
             {
                 for (int j = 1; j < 4; j++)
@@ -100,6 +105,21 @@ namespace Demo
                 _choice_player = Console.ReadLine();
                 Commands.CommandHandler.DiagnoseCommand(_choice_player,TheEngine.GetInstance()._addTiles, TheEngine.GetInstance()._renderingEngine);
             }
+        }
+
+        public bool CheckersEatingCheck(TileObject hungryTile,TileObject threatenedTile)
+        {
+            if (threatenedTile.CurrentPos.X < hungryTile.CurrentPos.X)
+            {
+                if (TheEngine.GetInstance()._addTiles.TileMapMatrix[threatenedTile.CurrentPos.X-1, threatenedTile.CurrentPos.Y -1 ].CurrentTileObject.TileObjectChar == " ")
+                    return true;
+            }
+            if (threatenedTile.CurrentPos.X > hungryTile.CurrentPos.X)
+            {
+                if (TheEngine.GetInstance()._addTiles.TileMapMatrix[threatenedTile.CurrentPos.X + 1, threatenedTile.CurrentPos.Y - 1].CurrentTileObject.TileObjectChar == " ")
+                    return true;
+            }
+            return false;
         }
     }
 }

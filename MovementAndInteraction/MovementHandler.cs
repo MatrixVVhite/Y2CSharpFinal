@@ -13,6 +13,8 @@ namespace MovementAndInteraction
         
         public List<Char> chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h','i','j']; //used for select
 
+        public Func<TileObject, TileObject,bool> CanEat { get; set; }
+
         //Where to move
         public void MoveAction(TileMap newtileMap)
         {
@@ -22,6 +24,65 @@ namespace MovementAndInteraction
             //renderingEngine.DisplayAllTiles();
         }
 
+
+        public bool Select(Position position, TileMap tileMap, RenderingEngine renderer)
+        {
+            CommandtileMap = tileMap;
+            Console.WriteLine("Selected Position " + position.X + " , " + position.Y);
+            var selectedobject = tileMap.TileMapMatrix[position.X, position.Y].CurrentTileObject;
+            if (selectedobject.Owner != null)
+            {
+                if (selectedobject.Owner.PlayerID == HundleTurns.CurrentPlayer)
+                {
+                    Console.WriteLine("Selected Tile Object " + selectedobject.TileObjectChar);
+                    SelectedTileObject = selectedobject;
+                    foreach (var item in selectedobject.Positions)
+                    {
+                        Position destination = new(position.X + item.X, position.Y + item.Y);
+                        var check = tileMap.TileMapMatrix[destination.X, destination.Y].Pass(position, destination, tileMap);
+
+                        if (check)
+                        {
+                            if (tileMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject.TileObjectChar != " " &&
+                                tileMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject.Owner.PlayerID != selectedobject.Owner.PlayerID &&
+                                CanEat.Invoke(SelectedTileObject, tileMap.TileMapMatrix[destination.X, destination.Y].CurrentTileObject))
+                            {
+                                
+                               
+
+
+                                if (destination.X < SelectedTileObject.CurrentPos.X)
+                                {
+                                    SelectedTileObject.Positions.Add( tileMap.TileMapMatrix[destination.X - 1, destination.Y + 1].CurrentTileObject.CurrentPos);
+                                    SelectedTileObject.Positions.Remove(item);
+                                    tileMap.TileMapMatrix[destination.X - 1, destination.Y + 1].Color = ConsoleColor.Green;
+                                }
+                                if (destination.X > SelectedTileObject.CurrentPos.X)
+                                {
+                                    SelectedTileObject.Positions.Add(tileMap.TileMapMatrix[destination.X - 1, destination.Y + 1].CurrentTileObject.CurrentPos);
+                                    SelectedTileObject.Positions.Remove(item);
+                                    tileMap.TileMapMatrix[destination.X + 1, destination.Y + 1].Color = ConsoleColor.Green;
+                                }
+                                continue;
+                            }
+                            tileMap.TileMapMatrix[destination.X, destination.Y].Color = ConsoleColor.Green;
+
+                        }
+                    }
+
+
+
+
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Wait! its not your turn");
+                    Console.ReadKey();
+                }
+            }
+            return false;
+        }
         public bool TryMoveCommand(Position destinedLocation, TileMap tileMap, RenderingEngine renderer)
         {
             if (SelectedTileObject != null)
@@ -43,7 +104,7 @@ namespace MovementAndInteraction
                         DeSelect(destinedLocation, tileMap, renderer);
                         CommandtileMap.MoveTileObject(SelectedTileObject, destinedLocation);
                         Console.WriteLine(SelectedTileObject.Positions[0].X + SelectedTileObject.CurrentPos.X + ", " + SelectedTileObject.Positions[0].Y + SelectedTileObject.CurrentPos.Y);
-                        ForgetSelected();
+                        
                         if (HundleTurns.CurrentPlayer < HundleTurns.NumberOfPlayers)
                         {
                             HundleTurns.CurrentPlayer++;
@@ -52,6 +113,8 @@ namespace MovementAndInteraction
                         {
                             HundleTurns.CurrentPlayer = 1;
                         }
+                        SelectedTileObject.Positions = SelectedTileObject.tempList;
+                        ForgetSelected();
                         return true;
                     }
                     else
@@ -60,39 +123,6 @@ namespace MovementAndInteraction
                     }
                 }
             }
-            return false;
-        }
-
-        public bool Select(Position position, TileMap tileMap, RenderingEngine renderer)
-        {
-            CommandtileMap = tileMap;
-            Console.WriteLine("Selected Position " + position.X + " , " + position.Y);
-            var selectedobject = tileMap.TileMapMatrix[position.X, position.Y].CurrentTileObject;
-            if (selectedobject.Owner.PlayerID == HundleTurns.CurrentPlayer)
-            {
-                Console.WriteLine("Selected Tile Object " + selectedobject.TileObjectChar);
-                foreach (var item in selectedobject.Positions)
-                {
-                    Position destination = new(position.X + item.X, position.Y + item.Y);
-                    var check = tileMap.TileMapMatrix[destination.X, destination.Y].Pass(position, destination, tileMap);
-
-                    if (check)
-                    {
-                        tileMap.TileMapMatrix[destination.X, destination.Y].Color = ConsoleColor.Green;
-
-                    }
-                }
-
-                SelectedTileObject = tileMap.TileMapMatrix[position.X, position.Y].CurrentTileObject;
-                
-
-                return true;
-            }
-            else
-            {
-                Console.WriteLine( "Wait! its not your turn");
-                Console.ReadKey();
-            } 
             return false;
         }
         public bool DeSelect(Position position, TileMap tileMap, RenderingEngine renderer)

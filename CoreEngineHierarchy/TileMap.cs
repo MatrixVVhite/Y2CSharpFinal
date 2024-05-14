@@ -24,7 +24,7 @@ namespace CoreEngineHierarchy
                 {
                     if (i == 0 || i == TileMapMatrix.GetLength(0) - 1 || j == 0 || j == TileMapMatrix.GetLength(1) - 1)
                     {
-                        TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.DarkCyan, new TileObject(" ", new Position[] { }, new Position(j, i), ConsoleColor.Black));
+                        TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.DarkCyan, new TileObject(" ", new List<Position> { }, new Position(j, i), ConsoleColor.Black));
                         FillFrame();
                     }
                     else
@@ -35,22 +35,22 @@ namespace CoreEngineHierarchy
                         {
                             if (j % 2 == 0)
                             {
-                                TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.White, new TileObject(" ", new Position[] { }, new Position(j, i), TileColor));
+                                TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.White, new TileObject(" ", new List<Position> { }, new Position(j, i), TileColor));
                             }
                             else if (j % 2 != 0)
                             {
-                                TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.Gray, new TileObject(" ", new Position[] { }, new Position(j, i), TileColor));
+                                TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.Gray, new TileObject(" ", new List<Position> { }, new Position(j, i), TileColor));
                             }
                         }
                         else
                         {
                             if (j % 2 != 0)
                             {
-                                TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.White, new TileObject(" ", new Position[] { }, new Position(j, i), TileColor));
+                                TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.White, new TileObject(" ", new  List<Position> { }, new Position(j, i), TileColor));
                             }
                             else if (j % 2 == 0)
                             {
-                                TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.Gray, new TileObject(" ", new Position[] { }, new Position(j, i), TileColor));
+                                TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.Gray, new TileObject(" ", new List<Position> { }, new Position(j, i), TileColor));
                             }
                         }
                     }
@@ -72,7 +72,7 @@ namespace CoreEngineHierarchy
         public void DeleteTileObjectAtPos(Position newPos)
         {
             //var newObject = new TileObject(" ", new Position[] { }, newPos, TileMapMatrix[newPos.X + 1, newPos.Y + 1].CurrentTileObject.Color);
-            var newObject = new TileObject(" ", new Position[] { }, newPos, ConsoleColor.Black);
+            var newObject = new TileObject(" ", new List<Position> { }, newPos, ConsoleColor.Black);
             InsertObjectToMap(newObject, newPos);
         }
 
@@ -97,13 +97,13 @@ namespace CoreEngineHierarchy
                 {
                     if (i == 0 || i == TileMapMatrix.GetLength(0) - 1)
                     {
-                        TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.DarkCyan, new TileObject(j.ToString(), new Position[] { }, new Position(j, i), ConsoleColor.Black));
+                        TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.DarkCyan, new TileObject(j.ToString(), new List<Position> { }, new Position(j, i), ConsoleColor.Black));
                     }
 
                     else if (j == 0 || j == TileMapMatrix.GetLength(1) - 1)
                     {
                         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
-                        TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.DarkCyan, new TileObject(alphabet[i - 1].ToString(), new Position[] { }, new Position(j, i), ConsoleColor.Black));
+                        TileMapMatrix[i, j] = new Tile(new Position(i, j), ConsoleColor.DarkCyan, new TileObject(alphabet[i - 1].ToString(), new List<Position>  { }, new Position(j, i), ConsoleColor.Black));
                     }
                 }
             }

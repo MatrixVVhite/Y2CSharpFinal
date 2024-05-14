@@ -8,7 +8,9 @@ namespace CoreEngineHierarchy
         /// Properties
         /// </summary>
         public string TileObjectChar { get; set; }
-        public Position[] Positions { get; set; }
+        public List<Position> Positions { get; set; }
+
+        public List<Position> tempList { get; set; }
         public Position CurrentPos { get; set; }
         public Player Owner { get; set; }
         public ConsoleColor Color { get; set; }
@@ -21,7 +23,7 @@ namespace CoreEngineHierarchy
         /// <summary>
         /// Creates a playerless tileObject, commonly used for empty spaces
         /// </summary>
-        public TileObject(string tileObjectChar, Position[] tileObjrctPositions, Position startingPos, ConsoleColor color)
+        public TileObject(string tileObjectChar, List<Position> tileObjrctPositions, Position startingPos, ConsoleColor color)
         {
             TileObjectChar = tileObjectChar;
             Positions = tileObjrctPositions;
@@ -34,12 +36,13 @@ namespace CoreEngineHierarchy
             }
 
             CurrentPos = startingPos;
+            tempList = Positions;
         }
 
         /// <summary>
         /// Creates a tileObject with a player reference
         /// </summary>
-        public TileObject(string tileObjectChar, Position[] tileObjrctPositions, Position startingPos, Player owner)
+        public TileObject(string tileObjectChar, List<Position> tileObjrctPositions, Position startingPos, Player owner)
         {
             TileObjectChar = tileObjectChar;
             Positions = tileObjrctPositions;
