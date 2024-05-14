@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Commands\Commands.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Commands">
       <HintPath>..\..\..\TileMapEngine\TileMapEngine\Commands\bin\Debug\net6.0\Commands.dll</HintPath>
     </Reference>
