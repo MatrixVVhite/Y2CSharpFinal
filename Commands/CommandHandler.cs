@@ -132,7 +132,10 @@ namespace Commands
                 Help(new Position(0, 0), tileMap, renderer);
                 renderer.UpdateAndRender(tileMap);
                 Console.SetCursorPosition(0, (MyMovemetHandler.chars.Count + 1));
-                DiagnoseCommand(Console.ReadLine(), tileMap, renderer);
+                //Console.ReadKey();
+                
+                //DiagnoseCommand(Console.ReadLine(), tileMap, renderer);
+                
             } 
         }
     }

@@ -102,6 +102,12 @@ namespace Demo
 
             while (true)
             {
+
+                Console.SetCursorPosition(TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(0)+25,1);
+                Console.WriteLine( $"Player {HundleTurns.CurrentPlayer}'s Turn");
+                Console.SetCursorPosition(0 , TheEngine.GetInstance()._addTiles.TileMapMatrix.GetLength(1)+2);
+
+
                 _choice_player = Console.ReadLine();
                 Commands.CommandHandler.DiagnoseCommand(_choice_player,TheEngine.GetInstance()._addTiles, TheEngine.GetInstance()._renderingEngine);
             }
